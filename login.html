@@ -1,0 +1,388 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Login - PetalFlow</title>
+    <link href="https://fonts.googleapis.com/css2?family=Poppins:wght@300;400;600;700&family=Dancing+Script:wght@700&display=swap" rel="stylesheet">
+    <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/animate.css/4.1.1/animate.min.css">
+    <style>
+        :root {
+            --primary: rgb(247, 13, 91);
+            --secondary: #a18cff;
+            --dark: #2a2344;
+            --light: #fef6ff;
+            --accent: #ffd166;
+        }
+        
+        * {
+            margin: 0;
+            padding: 0;
+            box-sizing: border-box;
+        }
+        
+        body {
+            font-family: 'Poppins', sans-serif;
+            background: linear-gradient(135deg, #fff5f7 0%, #f6f0ff 100%);
+            color: var(--dark);
+            min-height: 100vh;
+            display: flex;
+            flex-direction: column;
+        }
+        
+        .container {
+            max-width: 1200px;
+            margin: 0 auto;
+            padding: 0 20px;
+        }
+        
+        /* Header */
+        header {
+            padding: 20px 0;
+            background: linear-gradient(90deg, #bdaefcab);
+            box-shadow: 0 2px 12px rgba(161, 140, 255, 0.08);
+        }
+        
+        nav {
+            display: flex;
+            justify-content: space-between;
+            align-items: center;
+        }
+        
+        .logo {
+            font-family: 'Dancing Script', cursive;
+            font-size: 2.5rem;
+            font-weight: 700;
+            color: var(--primary);
+            text-shadow: 2px 2px 4px rgba(0,0,0,0.1);
+        }
+        
+        .back-home {
+            text-decoration: none;
+            color: var(--dark);
+            font-weight: 600;
+            display: flex;
+            align-items: center;
+            gap: 5px;
+        }
+        
+        .back-home:hover {
+            color: var(--primary);
+        }
+        
+        /* Login Section */
+        .login-container {
+            display: flex;
+            align-items: center;
+            justify-content: center;
+            flex-grow: 1;
+            padding: 40px 0;
+        }
+        
+        .login-box {
+            background: white;
+            border-radius: 20px;
+            box-shadow: 0 15px 40px rgba(0,0,0,0.1);
+            overflow: hidden;
+            display: flex;
+            max-width: 900px;
+            width: 100%;
+            animation: fadeInUp 0.5s ease;
+        }
+        
+        .login-image {
+            flex: 1;
+            background: linear-gradient(135deg, var(--primary) 0%, var(--secondary) 100%);
+            background-size: cover;
+            background-position: center;
+            display: flex;
+            align-items: center;
+            justify-content: center;
+            padding: 40px;
+            color: white;
+            text-align: center;
+        }
+        
+        .login-image h2 {
+            font-size: 2rem;
+            margin-bottom: 20px;
+        }
+        
+        .login-image p {
+            opacity: 0.9;
+        }
+        
+        .login-form {
+            flex: 1;
+            padding: 50px;
+        }
+        
+        .login-form h2 {
+            font-size: 2rem;
+            margin-bottom: 10px;
+            color: var(--dark);
+        }
+        
+        .login-form p {
+            color: #666;
+            margin-bottom: 30px;
+        }
+        
+        .form-group {
+            margin-bottom: 20px;
+        }
+        
+        .form-group label {
+            display: block;
+            margin-bottom: 8px;
+            font-weight: 600;
+            color: #555;
+        }
+        
+        .form-control {
+            width: 100%;
+            padding: 12px 15px;
+            border: 1px solid #ddd;
+            border-radius: 8px;
+            font-family: 'Poppins', sans-serif;
+            transition: all 0.3s ease;
+        }
+        
+        .form-control:focus {
+            border-color: var(--primary);
+            box-shadow: 0 0 0 3px rgba(255,107,157,0.2);
+            outline: none;
+        }
+        
+        .btn-primary {
+            background: linear-gradient(45deg, var(--primary), var(--secondary));
+            color: white;
+            border: none;
+            padding: 12px 25px;
+            border-radius: 8px;
+            font-weight: 600;
+            cursor: pointer;
+            width: 100%;
+            font-size: 1rem;
+            transition: all 0.3s ease;
+            margin-top: 10px;
+        }
+        
+        .btn-primary:hover {
+            transform: translateY(-2px);
+            box-shadow: 0 5px 15px rgba(161, 140, 255, 0.4);
+        }
+        
+        .signup-link {
+            text-align: center;
+            margin-top: 20px;
+            color: #666;
+        }
+        
+        .signup-link a {
+            color: var(--primary);
+            text-decoration: none;
+            font-weight: 600;
+        }
+        
+        .signup-link a:hover {
+            text-decoration: underline;
+        }
+        
+        .forgot-password {
+            text-align: right;
+            margin-top: -15px;
+            margin-bottom: 20px;
+        }
+        
+        .forgot-password a {
+            color: #666;
+            font-size: 0.9rem;
+            text-decoration: none;
+        }
+        
+        .forgot-password a:hover {
+            color: var(--primary);
+        }
+        
+        /* Social Login */
+        .social-login {
+            margin-top: 30px;
+            text-align: center;
+        }
+        
+        .social-login p {
+            position: relative;
+            color: #999;
+            margin-bottom: 20px;
+        }
+        
+        .social-login p:before,
+        .social-login p:after {
+            content: "";
+            position: absolute;
+            height: 1px;
+            width: 30%;
+            background: #ddd;
+            top: 50%;
+        }
+        
+        .social-login p:before {
+            left: 0;
+        }
+        
+        .social-login p:after {
+            right: 0;
+        }
+        
+        .social-icons {
+            display: flex;
+            justify-content: center;
+            gap: 15px;
+        }
+        
+        .social-icon {
+            width: 45px;
+            height: 45px;
+            border-radius: 50%;
+            display: flex;
+            align-items: center;
+            justify-content: center;
+            color: white;
+            font-size: 1.2rem;
+            text-decoration: none;
+            transition: all 0.3s ease;
+        }
+        
+        .social-icon:hover {
+            transform: translateY(-3px);
+        }
+        
+        .facebook {
+            background: #3b5998;
+        }
+        
+        .google {
+            background: #db4437;
+        }
+        
+        .apple {
+            background: #000;
+        }
+        
+        /* Form animations */
+        .form-group {
+            opacity: 0;
+            transform: translateY(20px);
+            animation: fadeInUp 0.5s ease forwards;
+        }
+        
+        .form-group:nth-child(1) { animation-delay: 0.1s; }
+        .form-group:nth-child(2) { animation-delay: 0.2s; }
+        .form-group:nth-child(3) { animation-delay: 0.3s; }
+        
+        @keyframes fadeInUp {
+            from {
+                opacity: 0;
+                transform: translateY(20px);
+            }
+            to {
+                opacity: 1;
+                transform: translateY(0);
+            }
+        }
+        
+        /* Responsive */
+        @media (max-width: 768px) {
+            .login-box {
+                flex-direction: column;
+            }
+            
+            .login-image {
+                padding: 30px 20px;
+            }
+            
+            .login-form {
+                padding: 30px;
+            }
+        }
+    </style>
+</head>
+<body>
+    <!-- Header -->
+    <header>
+        <div class="container">
+            <nav>
+                <div class="logo">PetalFlow</div>
+                <a href="index.html" class="back-home">
+                    <i class="fas fa-arrow-left"></i> Back to Home
+                </a>
+            </nav>
+        </div>
+    </header>
+    
+    <!-- Login Section -->
+    <section class="login-container">
+        <div class="login-box">
+            <div class="login-image">
+                <div>
+                    <h2>Welcome Back!</h2>
+                    <p>Track your cycle, understand your body, and embrace your flow.</p>
+                </div>
+            </div>
+            <div class="login-form">
+                <h2>Login to Your Account</h2>
+                <p>Enter your credentials to continue</p>
+                
+                <form id="loginForm">
+                    <div class="form-group">
+                        <label for="email">Email Address</label>
+                        <input type="email" id="email" class="form-control" required>
+                    </div>
+                    <div class="form-group">
+                        <label for="password">Password</label>
+                        <input type="password" id="password" class="form-control" required>
+                    </div>
+                    <div class="forgot-password">
+                        <a href="forgot-password.html">Forgot password?</a>
+                    </div>
+                    <button type="submit" class="btn-primary">Login</button>
+                </form>
+                
+                <div class="social-login">
+                    <p>Or login with</p>
+                    <div class="social-icons">
+                        <a href="#" class="social-icon facebook"><i class="fab fa-facebook-f"></i></a>
+                        <a href="#" class="social-icon google"><i class="fab fa-google"></i></a>
+                        <a href="#" class="social-icon apple"><i class="fab fa-apple"></i></a>
+                    </div>
+                </div>
+                
+                <div class="signup-link">
+                    Don't have an account? <a href="signup.html">Sign up</a>
+                </div>
+            </div>
+        </div>
+    </section>
+    
+    <!-- Font Awesome for icons -->
+    <script src="https://kit.fontawesome.com/a076d05399.js" crossorigin="anonymous"></script>
+    
+    <script>
+        // Form submission
+        document.getElementById('loginForm').addEventListener('submit', function(e) {
+            e.preventDefault();
+            
+            // Get form values
+            const email = document.getElementById('email').value;
+            const password = document.getElementById('password').value;
+            
+            // In a real app, you would validate and send this data to your backend
+            console.log('Login data:', { email, password });
+            
+            // Redirect to home page after successful login
+            window.location.href = 'home.html';
+        });
+    </script>
+</body>
+</html>

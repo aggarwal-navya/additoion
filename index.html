@@ -1,0 +1,937 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>PetalFlow - AI Period Tracker</title>
+    <link href="https://fonts.googleapis.com/css2?family=Poppins:wght@300;400;600;700&family=Dancing+Script:wght@700&display=swap" rel="stylesheet">
+    <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/animate.css/4.1.1/animate.min.css">
+    <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.4.0/css/all.min.css">
+    <style>
+        :root {
+            /* Light Theme (Default) */
+            --primary: rgb(247, 13, 91);
+            --secondary: #a18cff;
+            --dark: #2a2344;
+            --light: #fef6ff;
+            --accent: #ffd166;
+            --bg-primary: linear-gradient(135deg, #fff5f7 0%, #f6f0ff 100%);
+            --bg-secondary: white;
+            --text-primary: #2a2344;
+            --text-secondary: #666;
+        }
+        
+        [data-theme="dark"] {
+            /* Dark Theme */
+            --primary: #ff6b9d;
+            --secondary: #a18cff;
+            --dark: #fef6ff;
+            --light: #2a2344;
+            --accent: #ffd166;
+            --bg-primary: linear-gradient(135deg, #1a1a2e 0%, #16213e 100%);
+            --bg-secondary: #1f1f1f;
+            --text-primary: #fef6ff;
+            --text-secondary: #cccccc;
+        }
+        
+        * {
+            margin: 0;
+            padding: 0;
+            box-sizing: border-box;
+        }
+        
+        body {
+            font-family: 'Poppins', sans-serif;
+            background: var(--bg-primary);
+            color: var(--text-primary);
+            overflow-x: hidden;
+        }
+        
+        .container {
+            max-width: 1200px;
+            margin: 0 auto;
+            padding: 0 20px;
+        }
+        
+        /* Header */
+        header {
+            padding: 20px 0;
+            position: relative;
+            z-index: 100;
+            background: linear-gradient(90deg, #bdaefcab);
+            box-shadow: 0 2px 12px rgba(161, 140, 255, 0.08);
+        }
+        
+        nav {
+            display: flex;
+            justify-content: space-between;
+            align-items: center;
+        }
+        
+        .logo {
+            font-family: 'Dancing Script', cursive;
+            font-size: 2.5rem;
+            font-weight: 700;
+            color: rgb(247, 13, 91);
+            text-shadow: 2px 2px 4px rgba(0, 0, 0, 0.37);
+        }
+        
+        .nav-links {
+            display: flex;
+            gap: 30px;
+        }
+        
+        .nav-links a {
+            text-decoration: none;
+            color: var(--dark);
+            font-weight: 600;
+            position: relative;
+            transition: all 0.3s ease;
+        }
+        
+        .nav-links a:after {
+            content: '';
+            position: absolute;
+            width: 0;
+            height: 2px;
+            background: var(--primary);
+            bottom: -5px;
+            left: 0;
+            transition: width 0.3s ease;
+        }
+        
+        .nav-links a:hover:after {
+            width: 100%;
+        }
+        
+        .nav-links a:hover {
+            color: var(--primary);
+        }
+        
+        .cta-button {
+            background: linear-gradient(45deg, var(--primary), var(--secondary));
+            color: white;
+            border: none;
+            padding: 12px 25px;
+            border-radius: 30px;
+            font-weight: 600;
+            cursor: pointer;
+            box-shadow: 0 4px 15px rgba(161, 140, 255, 0.4);
+            transition: all 0.3s ease;
+        }
+        
+        .cta-button:hover {
+            transform: translateY(-3px);
+            box-shadow: 0 6px 20px rgba(161, 140, 255, 0.6);
+        }
+        
+        /* Hero Section */
+        .hero {
+            height: 80vh;
+            display: flex;
+            align-items: center;
+            position: relative;
+            overflow: hidden;
+        }
+        
+        .hero-content {
+            width: 50%;
+            z-index: 10;
+        }
+        
+        .hero h1 {
+            font-size: 3.5rem;
+            margin-bottom: 20px;
+            line-height: 1.2;
+        }
+        
+        .hero h1 span {
+            background: linear-gradient(45deg, var(--primary), var(--secondary));
+            -webkit-background-clip: text;
+            background-clip: text;
+            color: transparent;
+            font-family: 'Dancing Script', cursive;
+        }
+        
+        .hero p {
+            font-size: 1.1rem;
+            margin-bottom: 30px;
+            color: #555;
+            max-width: 80%;
+        }
+        
+        .hero-buttons {
+            display: flex;
+            gap: 20px;
+        }
+        
+        .secondary-button {
+            background: transparent;
+            color: var(--dark);
+            border: 2px solid var(--primary);
+            padding: 12px 25px;
+            border-radius: 30px;
+            font-weight: 600;
+            cursor: pointer;
+            transition: all 0.3s ease;
+        }
+        
+        .secondary-button:hover {
+            background: var(--primary);
+            color: white;
+        }
+        
+        .hero-image {
+            position: absolute;
+            right: 5%;
+            top: 50%;
+            transform: translateY(-50%);
+            width: 40%;
+            max-width: 400px;
+            z-index: 5;
+            border-radius: 50%;
+            overflow: hidden; /* Ensures the image stays circular */
+            aspect-ratio: 1/1; /* Ensures perfect circle */
+            background: white;
+            box-shadow: 0 8px 32px rgba(161,140,255,0.12);
+        }
+        
+        .hero-image img {
+            width: 100%;
+        }
+        
+        @keyframes float {
+            0% { transform: translateY(0px); }
+            50% { transform: translateY(-20px); }
+            100% { transform: translateY(0px); }
+        }
+        
+        /* Moon Phases Animation */
+        .moon-phases {
+            position: absolute;
+            top: 0;
+            left: 0;
+            width: 100%;
+            height: 100%;
+            overflow: hidden;
+            z-index: 1;
+        }
+        
+        .moon {
+            position: absolute;
+            border-radius: 50%;
+            background: rgba(255, 255, 255, 0.8);
+            box-shadow: 0 0 20px rgba(255, 255, 255, 0.6);
+            opacity: 0.3;
+            animation: moonFloat linear infinite;
+        }
+        
+        @keyframes moonFloat {
+            from { transform: translateY(0) rotate(0deg); }
+            to { transform: translateY(-1000px) rotate(360deg); }
+        }
+        
+        /* Features Section */
+        .features {
+            padding: 100px 0;
+            text-align: center;
+        }
+        
+        .features h2 {
+            font-size: 2.5rem;
+            margin-bottom: 60px;
+            position: relative;
+            display: inline-block;
+        }
+        
+        .features h2:after {
+            content: '';
+            position: absolute;
+            width: 50%;
+            height: 4px;
+            background: linear-gradient(45deg, var(--primary), var(--secondary));
+            bottom: -10px;
+            left: 25%;
+            border-radius: 2px;
+        }
+        
+        .feature-cards {
+            display: flex;
+            justify-content: center;
+            gap: 30px;
+            flex-wrap: wrap;
+        }
+        
+        .feature-card {
+            background: white;
+            border-radius: 20px;
+            padding: 30px;
+            width: 300px;
+            box-shadow: 0 10px 30px rgba(0,0,0,0.05);
+            transition: all 0.3s ease;
+            position: relative;
+            overflow: hidden;
+        }
+        
+        .feature-card:hover {
+            transform: translateY(-10px);
+            box-shadow: 0 15px 40px rgba(161, 140, 255, 0.2);
+        }
+        
+        .feature-card:before {
+            content: '';
+            position: absolute;
+            top: 0;
+            left: 0;
+            width: 100%;
+            height: 5px;
+            background: linear-gradient(45deg, var(--primary), var(--secondary));
+        }
+        
+        .feature-icon {
+            font-size: 3rem;
+            margin-bottom: 20px;
+            background: linear-gradient(45deg, var(--primary), var(--secondary));
+            -webkit-background-clip: text;
+            background-clip: text;
+            color: transparent;
+        }
+        
+        .feature-card h3 {
+            margin-bottom: 15px;
+            font-size: 1.5rem;
+        }
+        
+        .feature-card p {
+            color: #666;
+            line-height: 1.6;
+        }
+        
+        /* Testimonials */
+        .testimonials {
+            padding: 80px 0;
+            background: linear-gradient(135deg, rgba(255,107,157,0.05) 0%, rgba(161,140,255,0.05) 100%);
+        }
+        
+        .testimonial-slider {
+            max-width: 800px;
+            margin: 0 auto;
+            position: relative;
+        }
+        
+        .testimonial {
+            background: white;
+            padding: 40px;
+            border-radius: 20px;
+            box-shadow: 0 10px 30px rgba(0,0,0,0.05);
+            text-align: center;
+            display: none;
+        }
+        
+        .testimonial.active {
+            display: block;
+            animation: fadeIn 0.5s ease;
+        }
+        
+        @keyframes fadeIn {
+            from { opacity: 0; }
+            to { opacity: 1; }
+        }
+        
+        .testimonial-text {
+            font-size: 1.2rem;
+            font-style: italic;
+            margin-bottom: 20px;
+            color: #555;
+        }
+        
+        .testimonial-author {
+            font-weight: 600;
+            color: var(--primary);
+        }
+        
+        .testimonial-nav {
+            display: flex;
+            justify-content: center;
+            gap: 10px;
+            margin-top: 30px;
+        }
+        
+        .testimonial-dot {
+            width: 12px;
+            height: 12px;
+            border-radius: 50%;
+            background: #ddd;
+            cursor: pointer;
+            transition: all 0.3s ease;
+        }
+        
+        .testimonial-dot.active {
+            background: var(--primary);
+            transform: scale(1.2);
+        }
+        
+        /* CTA Section */
+        .cta-section {
+            padding: 100px 0;
+            text-align: center;
+            background: linear-gradient(135deg, var(--primary) 0%, var(--secondary) 100%);
+            color: white;
+            position: relative;
+            overflow: hidden;
+        }
+        
+        .cta-section:before {
+            content: '';
+            position: absolute;
+            top: 0;
+            left: 0;
+            width: 100%;
+            height: 100%;
+            background: url('data:image/svg+xml;utf8,<svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 100 100" preserveAspectRatio="none"><path fill="rgba(255,255,255,0.05)" d="M0,0 L100,0 L100,100 Q50,80 0,100 Z"></path></svg>');
+            background-size: 100% 100%;
+            background-repeat: no-repeat;
+        }
+        
+        .cta-section h2 {
+            font-size: 2.5rem;
+            margin-bottom: 20px;
+            position: relative;
+            z-index: 2;
+        }
+        
+        .cta-section p {
+            font-size: 1.1rem;
+            max-width: 600px;
+            margin: 0 auto 30px;
+            position: relative;
+            z-index: 2;
+            opacity: 0.9;
+        }
+        
+        .cta-buttons {
+            display: flex;
+            justify-content: center;
+            gap: 20px;
+            position: relative;
+            z-index: 2;
+        }
+        
+        .cta-secondary {
+            background: transparent;
+            color: white;
+            border: 2px solid white;
+        }
+        
+        .cta-secondary:hover {
+            background: white;
+            color: var(--primary);
+        }
+        
+        /* Footer */
+        footer {
+            background: var(--dark);
+            color: white;
+            padding: 60px 0 20px;
+        }
+        
+        .footer-content {
+            display: flex;
+            justify-content: space-between;
+            flex-wrap: wrap;
+            gap: 40px;
+            margin-bottom: 40px;
+        }
+        
+        .footer-column {
+            flex: 1;
+            min-width: 200px;
+        }
+        
+        .footer-column h3 {
+            font-size: 1.3rem;
+            margin-bottom: 20px;
+            color: var(--accent);
+        }
+        
+        .footer-column ul {
+            list-style: none;
+        }
+        
+        .footer-column ul li {
+            margin-bottom: 10px;
+        }
+        
+        .footer-column ul li a {
+            color: #ccc;
+            text-decoration: none;
+            transition: all 0.3s ease;
+        }
+        
+        .footer-column ul li a:hover {
+            color: white;
+            padding-left: 5px;
+        }
+        
+        .social-links {
+            display: flex;
+            gap: 15px;
+            margin-top: 20px;
+        }
+        
+        .social-links a {
+            color: white;
+            background: rgba(255,255,255,0.1);
+            width: 40px;
+            height: 40px;
+            border-radius: 50%;
+            display: flex;
+            align-items: center;
+            justify-content: center;
+            transition: all 0.3s ease;
+        }
+        
+        .social-links a:hover {
+            background: var(--primary);
+            transform: translateY(-3px);
+        }
+        
+        .copyright {
+            text-align: center;
+            padding-top: 20px;
+            border-top: 1px solid rgba(255,255,255,0.1);
+            color: #aaa;
+            font-size: 0.9rem;
+        }
+        
+        /* Animations */
+        .animate-delay-1 {
+            animation-delay: 0.2s;
+        }
+        
+        .animate-delay-2 {
+            animation-delay: 0.4s;
+        }
+        
+        .animate-delay-3 {
+            animation-delay: 0.6s;
+        }
+        
+        /* Responsive */
+        @media (max-width: 992px) {
+            .hero-content {
+                width: 100%;
+                text-align: center;
+            }
+            
+            .hero p {
+                max-width: 100%;
+            }
+            
+            .hero-buttons {
+                justify-content: center;
+            }
+            
+            .hero-image {
+                display: none;
+            }
+        }
+        
+        @media (max-width: 768px) {
+            .nav-links {
+                display: none;
+            }
+            
+            .hero h1 {
+                font-size: 2.5rem;
+            }
+            
+            .feature-cards {
+                flex-direction: column;
+                align-items: center;
+            }
+            
+            .cta-buttons {
+                flex-direction: column;
+                align-items: center;
+            }
+        }
+
+        /* About Section */
+        .about {
+            padding: 100px 0;
+            text-align: center;
+            background: var(--bg-secondary);
+            color: var(--text-primary);
+        }
+
+        .about h2 {
+            font-size: 2.5rem;
+            margin-bottom: 20px;
+            position: relative;
+            display: inline-block;
+        }
+
+        .about h2:after {
+            content: '';
+            position: absolute;
+            width: 50%;
+            height: 4px;
+            background: linear-gradient(45deg, var(--primary), var(--secondary));
+            bottom: -10px;
+            left: 25%;
+            border-radius: 2px;
+        }
+
+        .about p {
+            font-size: 1.1rem;
+            line-height: 1.8;
+            margin-bottom: 20px;
+            max-width: 800px;
+            margin-left: auto;
+            margin-right: auto;
+            color: var(--text-secondary);
+        }
+
+        .about-image {
+            margin-top: 30px;
+            display: flex;
+            justify-content: center;
+        }
+
+        .about-image img {
+            max-width: 350px;
+            width: 100%;
+            border-radius: 20px;
+            box-shadow: 0 10px 30px rgba(161, 140, 255, 0.08);
+            background: white;
+            padding: 10px;
+        }
+
+        /* Responsive for About Section */
+        @media (max-width: 992px) {
+            .about-image img {
+                max-width: 250px;
+            }
+        }
+
+        @media (max-width: 768px) {
+            .about {
+                padding: 60px 0;
+            }
+            .about h2 {
+                font-size: 2rem;
+            }
+            .about-image img {
+                max-width: 180px;
+            }
+        }
+    </style>
+</head>
+<body>
+    <!-- Moon Phases Background -->
+    <div class="moon-phases" id="moonPhases"></div>
+    
+    <!-- Header -->
+    <header>
+        <div class="container">
+            <nav>
+                <div class="logo">PetalFlow</div>
+                <div class="nav-links">
+                    <a href="#features">Features</a>
+                    <a href="#testimonials">Testimonials</a>
+                    <a href="guide.html">Guide</a>
+                    <a href="#about">About</a>
+                    <a href="#contact">Contact</a>
+                    <button id="themeToggle" class="theme-toggle">
+                        <i class="fas fa-moon"></i>
+                    </button>
+                </div>
+                <button class="cta-button" id="loginBtn" onclick="window.location.href='login.html'">Login</button>
+            </nav>
+        </div>
+    </header>
+    
+    <!-- Hero Section -->
+    <section class="hero">
+        <div class="container">
+            <div class="hero-content animate__animated animate__fadeIn">
+                <h1>Embrace Your <span>Cycles</span> with AI Magic</h1>
+                <p>PetalFlow uses advanced artificial intelligence to predict, track, and understand your menstrual cycle like never before. Personalized insights, mood tracking, and health recommendations tailored just for you.</p>
+                <div class="hero-buttons">
+                    <button class="cta-button" id="getstartedBtn" onclick="window.location.href='signup.html'">Get Started</button>
+                    <button class="secondary-button">Learn More</button>
+                </div>
+            </div>
+            <div class="hero-image">
+                <img src="calender.jpg" alt="Woman with calendar and moon phases">
+            </div>
+        </div>
+    </section>
+    
+    <!-- Features Section -->
+    <section class="features" id="features">
+        <div class="container">
+            <h2 class="animate__animated animate__fadeIn">Magical Features</h2>
+            <div class="feature-cards">
+                <div class="feature-card animate__animated animate__fadeInUp animate-delay-1">
+                    <div class="feature-icon">🌙</div>
+                    <h3>AI-Powered Predictions</h3>
+                    <p>Our advanced algorithm learns your unique cycle patterns to provide accurate predictions and helpful reminders.</p>
+                </div>
+                <div class="feature-card animate__animated animate__fadeInUp animate-delay-2">
+                    <div class="feature-icon">✨</div>
+                    <h3>Mood & Symptom Tracking</h3>
+                    <p>Log your daily moods, symptoms, and energy levels to discover patterns and get personalized insights.</p>
+                </div>
+                <div class="feature-card animate__animated animate__fadeInUp animate-delay-3">
+                    <div class="feature-icon">🔮</div>
+                    <h3>Health Recommendations</h3>
+                    <p>Get tailored nutrition, exercise, and self-care tips based on where you are in your cycle.</p>
+                </div>
+            </div>
+        </div>
+    </section>
+    
+    <!-- About Section -->
+    <section class="about" id="about">
+        <div class="container">
+            <h2 class="animate__animated animate__fadeIn">About PetalFlow</h2>
+            <p class="animate__animated animate__fadeIn animate-delay-1">
+                PetalFlow is an AI-powered period tracker designed to empower women by providing personalized insights into their menstrual health. 
+                Our advanced algorithms predict cycles, track moods, and offer tailored health recommendations to help you take control of your body.
+            </p>
+            <p class="animate__animated animate__fadeIn animate-delay-2">
+                Whether you're looking to understand your cycle better, manage symptoms, or simply stay organized, PetalFlow is here to support you every step of the way. 
+                Join thousands of women who trust PetalFlow to make their lives easier and healthier.
+            </p>
+            <div class="about-image">
+                <img src="https://i.imgur.com/3x3QZQe.png" alt="About PetalFlow">
+            </div>
+        </div>
+    </section>
+    
+    <!-- Testimonials -->
+    <section class="testimonials" id="testimonials">
+        <div class="container">
+            <div class="testimonial-slider">
+                <div class="testimonial active">
+                    <p class="testimonial-text">"PetalFlow has completely changed how I understand my body. The AI predictions are scarily accurate and the health tips have made my periods so much more manageable!"</p>
+                    <p class="testimonial-author">- Sarah, 24</p>
+                </div>
+                <div class="testimonial">
+                    <p class="testimonial-text">"As someone with irregular cycles, I've never found an app that could predict mine accurately until PetalFlow. It's like magic!"</p>
+                    <p class="testimonial-author">- Priya, 28</p>
+                </div>
+                <div class="testimonial">
+                    <p class="testimonial-text">"The mood tracking feature helped me realize my anxiety peaks at certain times in my cycle. Now I can prepare and take better care of myself."</p>
+                    <p class="testimonial-author">- Maya, 31</p>
+                </div>
+                <div class="testimonial-nav">
+                    <div class="testimonial-dot active" data-index="0"></div>
+                    <div class="testimonial-dot" data-index="1"></div>
+                    <div class="testimonial-dot" data-index="2"></div>
+                </div>
+            </div>
+        </div>
+    </section>
+    
+    <!-- CTA Section -->
+    <section class="cta-section" id="cta">
+        <div class="container">
+            <h2 class="animate__animated animate__fadeIn">Ready to Flow with Petal?</h2>
+            <p class="animate__animated animate__fadeIn animate-delay-1">Join thousands of women who have transformed their cycle experience with our AI-powered tracker.</p>
+            <div class="cta-buttons">
+                <button class="cta-button animate__animated animate__fadeIn animate-delay-2" id="ctaSignup"  onclick="window.location.href='signup.html'">Sign Up Free</button>
+                <button class="secondary-button cta-secondary animate__animated animate__fadeIn animate-delay-3">Learn More</button>
+            </div>
+        </div>
+    </section>
+    
+    <!-- Footer -->
+    <footer id="contact">
+        <div class="container">
+            <div class="footer-content">
+                <div class="footer-column">
+                    <h3>PetalFlow</h3>
+                    <p>Empowering women through AI-driven menstrual health insights and predictions.</p>
+                    <div class="social-links">
+                        <a href="#"><i class="fab fa-instagram"></i></a>
+                        <a href="#"><i class="fab fa-twitter"></i></a>
+                        <a href="#"><i class="fab fa-facebook-f"></i></a>
+                        <a href="#"><i class="fab fa-pinterest"></i></a>
+                    </div>
+                </div>
+                <div class="footer-column">
+                    <h3>Features</h3>
+                    <ul>
+                        <li><a href="#">Cycle Tracking</a></li>
+                        <li><a href="#">Health Insights</a></li>
+                        <li><a href="#">Mood Journal</a></li>
+                        <li><a href="#">Reminders</a></li>
+                        <li><a href="#">Privacy</a></li>
+                    </ul>
+                </div>
+                <div class="footer-column">
+                    <h3>Company</h3>
+                    <ul>
+                        <li><a href="#">About Us</a></li>
+                        <li><a href="#">Careers</a></li>
+                        <li><a href="#">Blog</a></li>
+                        <li><a href="#">Press</a></li>
+                        <li><a href="#">Contact</a></li>
+                    </ul>
+                </div>
+                <div class="footer-column">
+                    <h3>Support</h3>
+                    <ul>
+                        <li><a href="#">Help Center</a></li>
+                        <li><a href="#">Community</a></li>
+                        <li><a href="#">Privacy Policy</a></li>
+                        <li><a href="#">Terms of Service</a></li>
+                        <li><a href="#">FAQ</a></li>
+                    </ul>
+                </div>
+            </div>
+            <div class="copyright">
+                &copy; 2023 PetalFlow. All rights reserved.
+            </div>
+        </div>
+    </footer>
+    
+    <!-- Font Awesome for icons -->
+    <script src="https://kit.fontawesome.com/a076d05399.js" crossorigin="anonymous"></script>
+    
+    <script>
+        // Theme Switcher Functionality
+        document.addEventListener('DOMContentLoaded', () => {
+            const themeBtn = document.querySelector('.theme-btn');
+            const themeOptions = document.querySelector('.theme-options');
+            const themeChoices = document.querySelectorAll('.theme-option');
+
+            // Load saved theme
+            const savedTheme = localStorage.getItem('petalflow-theme') || 'default';
+            document.documentElement.setAttribute('data-theme', savedTheme);
+
+            // Toggle theme options
+            themeBtn.addEventListener('click', () => {
+                themeOptions.classList.toggle('show');
+            });
+
+            // Close theme options when clicking outside
+            document.addEventListener('click', (e) => {
+                if (!themeBtn.contains(e.target)) {
+                    themeOptions.classList.remove('show');
+                }
+            });
+
+            // Theme selection
+            themeChoices.forEach(choice => {
+                choice.addEventListener('click', () => {
+                    const theme = choice.dataset.theme;
+                    document.documentElement.setAttribute('data-theme', theme);
+                    localStorage.setItem('petalflow-theme', theme);
+                    themeOptions.classList.remove('show');
+                });
+            });
+        });
+         function createMoons() {
+            const moonPhases = document.getElementById('moonPhases');
+            const phases = ['🌑', '🌒', '🌓', '🌔', '🌕', '🌖', '🌗', '🌘'];
+            
+            for (let i = 0; i < 15; i++) {
+                const moon = document.createElement('div');
+                moon.className = 'moon';
+                moon.textContent = phases[Math.floor(Math.random() * phases.length)];
+                
+                // Random properties
+                const size = Math.random() * 30 + 20;
+                const left = Math.random() * 100;
+                const duration = Math.random() * 10 + 10;
+                const delay = Math.random() * 1;
+                
+                moon.style.width = `${size}px`;
+                moon.style.height = `${size}px`;
+                moon.style.left = `${left}%`;
+                moon.style.top = `${Math.random() * 100 + 100}%`;
+                moon.style.animationDuration = `${duration}s`;
+                moon.style.animationDelay = `${delay}s`;
+                moon.style.fontSize = `${size * 0.7}px`;
+                
+                moonPhases.appendChild(moon);
+            }
+        }
+        
+        // Testimonial slider
+        function setupTestimonialSlider() {
+            const testimonials = document.querySelectorAll('.testimonial');
+            const dots = document.querySelectorAll('.testimonial-dot');
+            let currentIndex = 0;
+            
+            function showTestimonial(index) {
+                testimonials.forEach(testimonial => testimonial.classList.remove('active'));
+                dots.forEach(dot => dot.classList.remove('active'));
+                
+                testimonials[index].classList.add('active');
+                dots[index].classList.add('active');
+                currentIndex = index;
+            }
+            
+            dots.forEach(dot => {
+                dot.addEventListener('click', () => {
+                    showTestimonial(parseInt(dot.dataset.index));
+                });
+            });
+            
+            // Auto-rotate testimonials
+            setInterval(() => {
+                let nextIndex = (currentIndex + 1) % testimonials.length;
+                showTestimonial(nextIndex);
+            }, 5000);
+        }
+        
+        // Button click handlers
+        function setupButtonHandlers() {
+            const signupButtons = [document.getElementById('signupBtn'), document.getElementById('ctaSignup')];
+            const loginButton = document.getElementById('loginBtn');
+            
+            signupButtons.forEach(button => {
+                button.addEventListener('click', () => {
+                    window.location.href = 'signup.html';
+                });
+            });
+            
+            loginButton.addEventListener('click', () => {
+                window.location.href = 'login.html';
+            });
+        }
+        
+        // Initialize everything when DOM loads
+        document.addEventListener('DOMContentLoaded', () => {
+            createMoons();
+            setupTestimonialSlider();
+            setupButtonHandlers();
+            
+            // Animate elements when they come into view
+            const animateOnScroll = () => {
+                const elements = document.querySelectorAll('.animate__animated');
+                
+                elements.forEach(element => {
+                    const elementPosition = element.getBoundingClientRect().top;
+                    const windowHeight = window.innerHeight;
+                    
+                    if (elementPosition < windowHeight - 100) {
+                        const animationClass = element.classList[1];
+                        element.classList.add(animationClass);
+                    }
+                });
+            };
+            
+            window.addEventListener('scroll', animateOnScroll);
+            animateOnScroll(); // Run once on load
+        });
+    </script>
+</body>
+</html>
+
+

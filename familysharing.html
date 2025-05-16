@@ -1,0 +1,268 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <title>Family & Partner Sharing - PetalFlow</title>
+    <link href="https://fonts.googleapis.com/css2?family=Poppins:wght@400;600&display=swap" rel="stylesheet">
+    <link href="https://fonts.googleapis.com/css2?family=Poppins:wght@300;400;600;700&family=Dancing+Script:wght@700&display=swap" rel="stylesheet">
+    <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.4.0/css/all.min.css">
+    <style>
+        body {
+            font-family: 'Poppins', sans-serif;
+            background: #fafafa;
+            color: #f8105d;;
+            margin: 0;
+            padding: 0;
+        }
+         .sidebar, .top-nav, .cycle-card, .calendar-section, .tracking-card, .health-tips {
+            background: var(--bg-card);
+            box-shadow: 0 5px 15px var(--shadow-color);
+        }
+    
+        
+        /* Sidebar */
+        .sidebar {
+            width: 250px;
+            background: white;
+            box-shadow: 2px 0 20px rgba(0,0,0,0.05);
+            padding: 30px 0;
+            position: fixed;
+            height: 100vh;
+            transition: all 0.3s ease;
+            z-index: 100;
+            overflow-y: auto; /* Make sidebar scrollable */
+        }
+        
+        .logo {
+            font-family: 'Dancing Script', cursive;
+            font-size: 2rem;
+            font-weight: 700;
+            color: var(--primary);
+            text-align: center;
+            margin-bottom: 40px;
+            padding: 0 20px;
+            text-shadow: 2px 2px 4px rgba(0, 0, 0, 0.253);
+        }
+        
+        .nav-menu {
+            list-style: none;
+        }
+        
+        .nav-item {
+            margin-bottom: 5px;
+        }
+        
+        .nav-link {
+            display: flex;
+            align-items: center;
+            padding: 12px 25px;
+            text-decoration: none;
+            color: #555;
+            transition: all 0.3s ease;
+        }
+        
+        .nav-link:hover, .nav-link.active {
+            color: var(--primary);
+            background: rgba(255,107,157,0.1);
+            border-right: 3px solid var(--primary);
+        }
+        
+        .nav-link i {
+            margin-right: 15px;
+            font-size: 1.2rem;
+            width: 20px;
+            text-align: center;
+        }
+        
+        /* Main Content */
+        .main-content {
+            flex: 1;
+            margin-left: 250px;
+            transition: all 0.3s ease;
+            min-width: 0;
+        }
+        
+        /* Header */
+        .top-nav {
+            background: white;
+            padding: 20px 30px;
+            display: flex;
+            justify-content: space-between;
+            align-items: center;
+            box-shadow: 0 2px 10px rgba(0,0,0,0.05);
+            position: sticky;
+            top: 0;
+            z-index: 10;
+        }
+        .sharing-section {
+            max-width: 600px;
+            margin: 40px auto;
+            background: #fff;
+            border-radius: 18px;
+            box-shadow: 0 4px 24px rgba(161,140,255,0.10);
+            padding: 32px 28px;
+        }
+        .sharing-title {
+            font-size: 2rem;
+            font-weight: 600;
+            color: #f8105d;;
+            margin-bottom: 18px;
+            text-align: center;
+        }
+        .sharing-desc {
+            color: #555;
+            text-align: center;
+            margin-bottom: 28px;
+        }
+        .sharing-cards {
+            display: flex;
+            flex-wrap: wrap;
+            gap: 18px;
+            justify-content: center;
+        }
+        .sharing-card {
+            background: #f6f0ff;
+            border-radius: 14px;
+            padding: 18px 22px;
+            min-width: 150px;
+            flex: 1 1 180px;
+            display: flex;
+            flex-direction: column;
+            align-items: center;
+            box-shadow: 0 2px 8px rgba(161,140,255,0.07);
+        }
+        .sharing-icon {
+            font-size: 2rem;
+            margin-bottom: 10px;
+            color: #fd0e5e;
+        }
+        .sharing-label {
+            font-weight: 600;
+            margin-bottom: 6px;
+            color: #2a2344;
+        }
+        .sharing-value {
+            color: #7f64f5;
+            font-size: 1.1rem;
+        }
+        @media (max-width: 600px) {
+            .sharing-section {
+                padding: 18px 6px;
+            }
+            .sharing-cards {
+                flex-direction: column;
+                gap: 12px;
+            }
+        }
+    </style>
+</head>
+<body>
+       <div class="sidebar" id="sidebar">
+    <div class="logo">Petal<span>Flow</span></div>
+    <ul class="nav-menu">
+        <li class="nav-item">
+            <a href="home.html" class="nav-link active">
+                <i class="fas fa-home"></i>
+                <span>Dashboard</span>
+            </a>
+        </li>
+        <li class="nav-item">
+            <a href="calendar.html" class="nav-link">
+                <i class="fas fa-calendar-alt"></i>
+                <span>Calendar</span>
+            </a>
+        </li>
+        <li class="nav-item">
+            <a href="tracker.html" class="nav-link">
+                <i class="fas fa-chart-line"></i>
+                <span>Tracker</span>
+            </a>
+        </li>
+        <li class="nav-item">
+            <a href="insights.html" class="nav-link">
+                <i class="fas fa-lightbulb"></i>
+                <span>Insights</span>
+            </a>
+        </li>
+        <li class="nav-item">
+            <a href="health.html" class="nav-link">
+                <i class="fas fa-heartbeat"></i>
+                <span>Health Tips</span>
+            </a>
+        </li>
+        <li class="nav-item">
+            <a href="community.html" class="nav-link">
+                <i class="fas fa-users"></i>
+                <span>Community</span>
+            </a>
+        </li>
+        <li class="nav-item">
+            <a href="familysharing.html" class="nav-link">
+                <i class="fas fa-users-between-lines"></i>
+                <span>Family Sharing</span>
+            </a>
+        </li>
+        <li class="nav-item">
+            <a href="settings.html" class="nav-link">
+                <i class="fas fa-cog"></i>
+                <span>Settings</span>
+            </a>
+        </li>
+        <li class="nav-item">
+            <a href="help.html" class="nav-link">
+                <i class="fas fa-hands-helping"></i>
+                <span>Help</span>
+            </a>
+        </li>
+        <li class="nav-item">
+            <a href="complaint.html" class="nav-link">
+                <i class="fas fa-exclamation-circle"></i>
+                <span>Complaint Section</span>
+            </a>
+        </li>
+        <li class="nav-item">
+            <a href="chat.html" class="nav-link">
+                <i class="fas fa-comments"></i>
+                <span>AI Assistant</span>
+            </a>
+        </li>
+        <li class="nav-item">
+            <a href="quiz.html" class="nav-link">
+                <i class="fas fa-question-circle"></i>
+                <span>Quiz</span>
+            </a>
+        </li>
+    </ul>
+</div>
+
+    
+    <section class="sharing-section">
+        <div class="sharing-title">Family & Partner Sharing</div>
+        <div class="sharing-desc">
+            Share your current period time, mood, cravings, and symptoms with your family or partner so they can support you better.
+        </div>
+        <div class="sharing-cards">
+            <div class="sharing-card">
+                <div class="sharing-icon"><i class="fas fa-calendar-day"></i></div>
+                <div class="sharing-label">Period Time</div>
+                <div class="sharing-value">Day 2 of 5</div>
+            </div>
+            <div class="sharing-card">
+                <div class="sharing-icon"><i class="fas fa-smile-beam"></i></div>
+                <div class="sharing-label">Mood</div>
+                <div class="sharing-value">A bit tired, needs comfort</div>
+            </div>
+            <div class="sharing-card">
+                <div class="sharing-icon"><i class="fas fa-ice-cream"></i></div>
+                <div class="sharing-label">Cravings</div>
+                <div class="sharing-value">Chocolate & Ice Cream</div>
+            </div>
+            <div class="sharing-card">
+                <div class="sharing-icon"><i class="fas fa-heart"></i></div>
+                <div class="sharing-label">Symptoms</div>
+                <div class="sharing-value">Mild cramps</div>
+            </div>
+        </div>
+    </section>
+</body>
+</html>

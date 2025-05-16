@@ -1,0 +1,265 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <title>Complaint Section - Pad Machine Issues</title>
+    <link href="https://fonts.googleapis.com/css2?family=Poppins:wght@300;400;600;700&family=Dancing+Script:wght@700&display=swap" rel="stylesheet">
+    <link href="https://fonts.googleapis.com/css2?family=Poppins:wght@400;600&display=swap" rel="stylesheet">
+    <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.4.0/css/all.min.css">
+    <style>
+        body {
+            font-family: 'Poppins', sans-serif;
+            background: #fafafa;
+            color: #2a2344;
+            margin: 0;
+            padding: 0;
+        }
+         .sidebar, .top-nav, .cycle-card, .calendar-section, .tracking-card, .health-tips {
+            background: var(--bg-card);
+            box-shadow: 0 5px 15px var(--shadow-color);
+        }
+    
+        
+        /* Sidebar */
+        .sidebar {
+            width: 250px;
+            background: white;
+            box-shadow: 2px 0 20px rgba(0,0,0,0.05);
+            padding: 30px 0;
+            position: fixed;
+            height: 100vh;
+            transition: all 0.3s ease;
+            z-index: 100;
+            overflow-y: auto; /* Make sidebar scrollable */
+        }
+        
+        .logo {
+            font-family: 'Dancing Script', cursive;
+            font-size: 2rem;
+            font-weight: 700;
+            color: var(--primary);
+            text-align: center;
+            margin-bottom: 40px;
+            padding: 0 20px;
+            text-shadow: 2px 2px 4px rgba(0, 0, 0, 0.253);
+        }
+        
+        .nav-menu {
+            list-style: none;
+        }
+        
+        .nav-item {
+            margin-bottom: 5px;
+        }
+        
+        .nav-link {
+            display: flex;
+            align-items: center;
+            padding: 12px 25px;
+            text-decoration: none;
+            color: #555;
+            transition: all 0.3s ease;
+        }
+        
+        .nav-link:hover, .nav-link.active {
+            color: var(--primary);
+            background: rgba(255,107,157,0.1);
+            border-right: 3px solid var(--primary);
+        }
+        
+        .nav-link i {
+            margin-right: 15px;
+            font-size: 1.2rem;
+            width: 20px;
+            text-align: center;
+        }
+        
+        /* Main Content */
+        .main-content {
+            flex: 1;
+            margin-left: 250px;
+            transition: all 0.3s ease;
+            min-width: 0;
+        }
+        
+        .complaint-section {
+            max-width: 700px;
+            margin: 40px auto;
+            background: #fff;
+            border-radius: 18px;
+            box-shadow: 0 4px 24px rgba(161,140,255,0.10);
+            padding: 32px 28px;
+        }
+        .complaint-title {
+            font-size: 2rem;
+            font-weight: 600;
+            color: #fd0e5e;
+            margin-bottom: 18px;
+            text-align: center;
+        }
+        .complaint-desc {
+            color: #555;
+            text-align: center;
+            margin-bottom: 28px;
+        }
+        .complaint-list {
+            margin: 0;
+            padding: 0;
+            list-style: none;
+        }
+        .complaint-card {
+            background: #f6f0ff;
+            border-radius: 14px;
+            padding: 18px 22px;
+            margin-bottom: 18px;
+            display: flex;
+            align-items: flex-start;
+            gap: 18px;
+            box-shadow: 0 2px 8px rgba(161,140,255,0.07);
+        }
+        .complaint-icon {
+            font-size: 2rem;
+            color: #a18cff;
+            margin-top: 2px;
+        }
+        .complaint-content {
+            flex: 1;
+        }
+        .complaint-label {
+            font-weight: 600;
+            color: #2a2344;
+            margin-bottom: 4px;
+        }
+        .complaint-location {
+            color: #fd0e5e;
+            font-size: 1rem;
+            margin-bottom: 4px;
+        }
+        .complaint-status {
+            font-size: 0.95rem;
+            color: #555;
+        }
+        @media (max-width: 600px) {
+            .complaint-section {
+                padding: 18px 6px;
+            }
+            .complaint-card {
+                flex-direction: column;
+                gap: 8px;
+            }
+        }
+    </style>
+</head>
+<body>
+    <div class="sidebar" id="sidebar">
+    <div class="logo">Petal<span>Flow</span></div>
+    <ul class="nav-menu">
+        <li class="nav-item">
+            <a href="home.html" class="nav-link active">
+                <i class="fas fa-home"></i>
+                <span>Dashboard</span>
+            </a>
+        </li>
+        <li class="nav-item">
+            <a href="calendar.html" class="nav-link">
+                <i class="fas fa-calendar-alt"></i>
+                <span>Calendar</span>
+            </a>
+        </li>
+        <li class="nav-item">
+            <a href="tracker.html" class="nav-link">
+                <i class="fas fa-chart-line"></i>
+                <span>Tracker</span>
+            </a>
+        </li>
+        <li class="nav-item">
+            <a href="insights.html" class="nav-link">
+                <i class="fas fa-lightbulb"></i>
+                <span>Insights</span>
+            </a>
+        </li>
+        <li class="nav-item">
+            <a href="health.html" class="nav-link">
+                <i class="fas fa-heartbeat"></i>
+                <span>Health Tips</span>
+            </a>
+        </li>
+        <li class="nav-item">
+            <a href="community.html" class="nav-link">
+                <i class="fas fa-users"></i>
+                <span>Community</span>
+            </a>
+        </li>
+        <li class="nav-item">
+            <a href="familysharing.html" class="nav-link">
+                <i class="fas fa-users-between-lines"></i>
+                <span>Family Sharing</span>
+            </a>
+        </li>
+        <li class="nav-item">
+            <a href="settings.html" class="nav-link">
+                <i class="fas fa-cog"></i>
+                <span>Settings</span>
+            </a>
+        </li>
+        <li class="nav-item">
+            <a href="help.html" class="nav-link">
+                <i class="fas fa-hands-helping"></i>
+                <span>Help</span>
+            </a>
+        </li>
+        <li class="nav-item">
+            <a href="complaint.html" class="nav-link">
+                <i class="fas fa-exclamation-circle"></i>
+                <span>Complaint Section</span>
+            </a>
+        </li>
+        <li class="nav-item">
+            <a href="chat.html" class="nav-link">
+                <i class="fas fa-comments"></i>
+                <span>AI Assistant</span>
+            </a>
+        </li>
+        <li class="nav-item">
+            <a href="quiz.html" class="nav-link">
+                <i class="fas fa-question-circle"></i>
+                <span>Quiz</span>
+            </a>
+        </li>
+    </ul>
+</div>
+
+    <section class="complaint-section">
+        <div class="complaint-title">Complaint Section</div>
+        <div class="complaint-desc">
+            Report and view issues related to pad machines: missing machines, installation requests, or empty machines.
+        </div>
+        <ul class="complaint-list">
+            <li class="complaint-card">
+                <div class="complaint-icon"><i class="fas fa-times-circle"></i></div>
+                <div class="complaint-content">
+                    <div class="complaint-label">Pad Machine Missing</div>
+                    <div class="complaint-location">Location: Girls' Hostel Block B, 2nd Floor</div>
+                    <div class="complaint-status">Reported: 15 May 2025</div>
+                </div>
+            </li>
+            <li class="complaint-card">
+                <div class="complaint-icon"><i class="fas fa-tools"></i></div>
+                <div class="complaint-content">
+                    <div class="complaint-label">Pad Machine Installation Requested</div>
+                    <div class="complaint-location">Location: Library, Ground Floor</div>
+                    <div class="complaint-status">Status: Pending Installation</div>
+                </div>
+            </li>
+            <li class="complaint-card">
+                <div class="complaint-icon"><i class="fas fa-exclamation-triangle"></i></div>
+                <div class="complaint-content">
+                    <div class="complaint-label">Pad Machine Empty</div>
+                    <div class="complaint-location">Location: Main Building, 1st Floor Restroom</div>
+                    <div class="complaint-status">Reported: 14 May 2025</div>
+                </div>
+            </li>
+        </ul>
+    </section>
+</body>
+</html>

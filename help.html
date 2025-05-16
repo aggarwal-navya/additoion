@@ -1,0 +1,316 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <title>Help & Support - PetalFlow</title>
+    <link href="https://fonts.googleapis.com/css2?family=Poppins:wght@300;400;600;700&family=Dancing+Script:wght@700&display=swap" rel="stylesheet">
+    <link href="https://fonts.googleapis.com/css2?family=Poppins:wght@400;600&display=swap" rel="stylesheet">
+    <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.4.0/css/all.min.css">
+    <style>
+         :root {
+            --primary: rgb(247, 13, 91);
+            --secondary: #a18cff;
+            --dark: #2a2344;
+            --light: #fef6ff;
+            --accent: #ffd166;
+            --bg-main: #fafafa;
+            --bg-card: #ffffff;
+            --text-primary: var(--dark);
+            --text-secondary: #555;
+            --border-color: rgba(0,0,0,0.05);
+            --shadow-color: rgba(0,0,0,0.05);
+        }
+    
+        
+        body {
+            font-family: 'Poppins', sans-serif;
+            background: #fafafa;
+            color: var(--dark);
+            display: flex;
+            min-height: 100vh;
+            overflow-x: hidden;
+            background: var(--bg-main);
+            color: var(--text-primary);
+        }
+         .sidebar, .top-nav, .cycle-card, .calendar-section, .tracking-card, .health-tips {
+            background: var(--bg-card);
+            box-shadow: 0 5px 15px var(--shadow-color);
+        }
+        /* Sidebar */
+        .sidebar {
+            width: 250px;
+            background: white;
+            box-shadow: 2px 0 20px rgba(0,0,0,0.05);
+            padding: 30px 0;
+            position: fixed;
+            height: 100vh;
+            transition: all 0.3s ease;
+            z-index: 100;
+            overflow-y: auto; /* Make sidebar scrollable */
+        }
+        
+        .logo {
+            font-family: 'Dancing Script', cursive;
+            font-size: 2rem;
+            font-weight: 700;
+            color: var(--primary);
+            text-align: center;
+            margin-bottom: 40px;
+            padding: 0 20px;
+            text-shadow: 2px 2px 4px rgba(0, 0, 0, 0.253);
+        }
+        
+        .nav-menu {
+            list-style: none;
+        }
+        
+        .nav-item {
+            margin-bottom: 5px;
+        }
+        
+        .nav-link {
+            display: flex;
+            align-items: center;
+            padding: 12px 25px;
+            text-decoration: none;
+            color: #555;
+            transition: all 0.3s ease;
+        }
+        .nav-item:hover > .nav-link,
+        .nav-link.active {
+         color: var(--primary);
+        background: rgba(255,107,157,0.1);
+        border-right: 3px solid var(--primary);
+}
+
+        .nav-link i {
+            margin-right: 15px;
+            font-size: 1.2rem;
+            width: 20px;
+            text-align: center;
+        }
+        
+        /* Main Content */
+        .main-content {
+            flex: 1;
+            margin-left: 250px;
+            transition: all 0.3s ease;
+            min-width: 0;
+        }
+        .help-section {
+            max-width: 700px;
+            margin: 40px auto;
+            background: #fff;
+            border-radius: 18px;
+            box-shadow: 0 4px 24px rgba(161,140,255,0.10);
+            padding: 32px 28px;
+        }
+        .help-title {
+            font-size: 2rem;
+            font-weight: 600;
+            color: var(--primary);
+            margin-bottom: 18px;
+            text-align: center;
+        }
+        .help-desc {
+            color: #555;
+            text-align: center;
+            margin-bottom: 28px;
+        }
+        .help-cards {
+            display: flex;
+            flex-wrap: wrap;
+            gap: 18px;
+            justify-content: center;
+        }
+        .help-card {
+            background: #f6f0ff;
+            border-radius: 14px;
+            padding: 18px 22px;
+            min-width: 180px;
+            flex: 1 1 220px;
+            display: flex;
+            flex-direction: column;
+            align-items: center;
+            box-shadow: 0 2px 8px rgba(161,140,255,0.07);
+        }
+        .help-icon {
+            font-size: 2rem;
+            margin-bottom: 10px;
+            color: #fd0e5e;
+        }
+        .help-label {
+            font-weight: 600;
+            margin-bottom: 6px;
+            color: #2a2344;
+            text-align: center;
+        }
+        .help-value {
+            color: #7f64f5;
+            font-size: 1.05rem;
+            text-align: center;
+        }
+        .help-link {
+            color: #fd0e5e;
+            text-decoration: underline;
+            font-size: 0.98rem;
+            margin-top: 8px;
+        }
+        @media (max-width: 600px) {
+            .help-section {
+                padding: 18px 6px;
+            }
+            .help-cards {
+                flex-direction: column;
+                gap: 12px;
+            }
+        }
+    </style>
+</head>
+<body>
+    <div class="sidebar" id="sidebar">
+    <div class="logo">Petal<span>Flow</span></div>
+    <ul class="nav-menu">
+        <li class="nav-item">
+            <a href="home.html" class="nav-link active">
+                <i class="fas fa-home"></i>
+                <span>Dashboard</span>
+            </a>
+        </li>
+        <li class="nav-item">
+            <a href="calendar.html" class="nav-link">
+                <i class="fas fa-calendar-alt"></i>
+                <span>Calendar</span>
+            </a>
+        </li>
+        <li class="nav-item">
+            <a href="tracker.html" class="nav-link">
+                <i class="fas fa-chart-line"></i>
+                <span>Tracker</span>
+            </a>
+        </li>
+        <li class="nav-item">
+            <a href="insights.html" class="nav-link">
+                <i class="fas fa-lightbulb"></i>
+                <span>Insights</span>
+            </a>
+        </li>
+        <li class="nav-item">
+            <a href="health.html" class="nav-link">
+                <i class="fas fa-heartbeat"></i>
+                <span>Health Tips</span>
+            </a>
+        </li>
+        <li class="nav-item">
+            <a href="community.html" class="nav-link">
+                <i class="fas fa-users"></i>
+                <span>Community</span>
+            </a>
+        </li>
+        <li class="nav-item">
+            <a href="familysharing.html" class="nav-link">
+                <i class="fas fa-users-between-lines"></i>
+                <span>Family Sharing</span>
+            </a>
+        </li>
+        <li class="nav-item">
+            <a href="settings.html" class="nav-link">
+                <i class="fas fa-cog"></i>
+                <span>Settings</span>
+            </a>
+        </li>
+        <li class="nav-item">
+            <a href="help.html" class="nav-link">
+                <i class="fas fa-hands-helping"></i>
+                <span>Help</span>
+            </a>
+        </li>
+        <li class="nav-item">
+            <a href="complaint.html" class="nav-link">
+                <i class="fas fa-exclamation-circle"></i>
+                <span>Complaint Section</span>
+            </a>
+        </li>
+        <li class="nav-item">
+            <a href="chat.html" class="nav-link">
+                <i class="fas fa-comments"></i>
+                <span>AI Assistant</span>
+            </a>
+        </li>
+        <li class="nav-item">
+            <a href="quiz.html" class="nav-link">
+                <i class="fas fa-question-circle"></i>
+                <span>Quiz</span>
+            </a>
+        </li>
+    </ul>
+</div>
+
+    <section class="help-section">
+        <div class="help-title">Help & Support</div>
+        <div class="help-desc">
+            Find resources and support for your menstrual health, including pharmacies, free pad distribution, and NGO assistance.
+        </div>
+        <!-- Home Remedies for Period Cramps Section -->
+        <div style="display: flex; flex-direction: column; align-items: center; margin-bottom: 32px;">
+            <img src="help.jpg"
+                 alt="Home Remedies for Period Cramps"
+                 style="border-radius: 18px; max-width: 350px; width: 100%; box-shadow: 0 4px 24px rgba(161,140,255,0.10); margin-bottom: 18px;">
+            <div style="max-width: 600px; background: #f6f0ff; border-radius: 14px; padding: 18px 22px; box-shadow: 0 2px 8px rgba(161,140,255,0.07);">
+                <h3 style="color:#fd0e5e; margin-bottom:10px; text-align:center;">Home Remedies for Period Cramps</h3>
+                <ul style="color:#2a2344; font-size:1rem; line-height:1.7; padding-left:18px;">
+                    <li><b>Warm Compress:</b> Place a heating pad or hot water bottle on your lower abdomen to relax muscles and relieve pain.</li>
+                    <li><b>Herbal Teas:</b> Drink chamomile, ginger, or peppermint tea to help reduce cramps and soothe your body.</li>
+                    <li><b>Gentle Exercise:</b> Light activities like walking or yoga can increase blood flow and ease discomfort.</li>
+                    <li><b>Stay Hydrated:</b> Drink plenty of water to help reduce bloating and ease cramps.</li>
+                    <li><b>Massage:</b> Gently massage your lower abdomen in circular motions to help relieve tension.</li>
+                    <li><b>Healthy Diet:</b> Eat foods rich in magnesium (like bananas, nuts, and leafy greens) to help relax muscles.</li>
+                    <li><b>Rest:</b> Make sure to get enough sleep and rest when you need it.</li>
+                </ul>
+            </div>
+        </div>
+        <div class="help-cards">
+            <div class="help-card">
+                <div class="help-icon"><i class="fas fa-map-marker-alt"></i></div>
+                <div class="help-label">Find Nearest Pharmacy</div>
+                <div class="help-value">Locate the closest pharmacy for sanitary products and medicines.</div>
+                <a class="help-link" href="https://www.google.com/maps/search/pharmacy+near+me" target="_blank">Open in Maps</a>
+            </div>
+            <div class="help-card">
+                <div class="help-icon"><i class="fas fa-location-arrow"></i></div>
+                <div class="help-label">Find Your Location</div>
+                <div class="help-value">Allow location access to get personalized help and directions to nearby resources.</div>
+                <button class="help-link" onclick="getLocation()">Show My Location</button>
+                <div id="locationResult" style="font-size:0.95rem;color:#333;margin-top:6px;"></div>
+            </div>
+            <div class="help-card">
+                <div class="help-icon"><i class="fas fa-gift"></i></div>
+                <div class="help-label">Free Pad Distribution by NGOs</div>
+                <div class="help-value">NGOs regularly distribute free sanitary pads at community centers and schools. <br>Contact your local NGO for schedules.</div>
+            </div>
+            <div class="help-card">
+                <div class="help-icon"><i class="fas fa-hands-helping"></i></div>
+                <div class="help-label">NGO Help: Free Checkup & Medicine</div>
+                <div class="help-value">Get free health checkups and medicines from partnered NGOs. <br>Look for upcoming health camps in your area.</div>
+            </div>
+        </div>
+    </section>
+    <script>
+        function getLocation() {
+            const result = document.getElementById('locationResult');
+            if (navigator.geolocation) {
+                navigator.geolocation.getCurrentPosition(
+                    function(position) {
+                        result.textContent = `Latitude: ${position.coords.latitude.toFixed(4)}, Longitude: ${position.coords.longitude.toFixed(4)}`;
+                    },
+                    function() {
+                        result.textContent = "Unable to retrieve your location.";
+                    }
+                );
+            } else {
+                result.textContent = "Geolocation is not supported by your browser.";
+            }
+        }
+    </script>
+</body>
+</html>

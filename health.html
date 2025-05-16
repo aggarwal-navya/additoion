@@ -1,0 +1,1278 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Health Tips - PetalFlow</title>
+    <link href="https://fonts.googleapis.com/css2?family=Poppins:wght@300;400;600;700&family=Dancing+Script:wght@700&display=swap" rel="stylesheet">
+    <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/animate.css/4.1.1/animate.min.css">
+    <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.4.0/css/all.min.css">
+    <style>
+        /* Include all the CSS from home.html up to the .main-content section */
+        :root {
+            --primary: rgb(247, 13, 91);
+            --secondary: #a18cff;
+            --dark: #2a2344;
+            --light: #fef6ff;
+            --accent: #ffd166;
+        }
+        
+        * {
+            margin: 0;
+            padding: 0;
+            box-sizing: border-box;
+        }
+        
+        body {
+            font-family: 'Poppins', sans-serif;
+            background: #fafafa;
+            color: var(--dark);
+            display: flex;
+            min-height: 100vh;
+            overflow-x: hidden;
+        }
+        
+        /* Sidebar */
+        .sidebar {
+            width: 250px;
+            background: white;
+            box-shadow: 2px 0 20px rgba(0,0,0,0.05);
+            padding: 30px 0;
+            position: fixed;
+            height: 100vh;
+            transition: all 0.3s ease;
+            z-index: 100;
+        }
+        
+        .logo {
+            font-family: 'Dancing Script', cursive;
+            font-size: 2rem;
+            font-weight: 700;
+            color: var(--primary);
+            text-align: center;
+            margin-bottom: 40px;
+            padding: 0 20px;
+        }
+        
+        .nav-menu {
+            list-style: none;
+        }
+        
+        .nav-item {
+            margin-bottom: 5px;
+        }
+        
+        .nav-link {
+            display: flex;
+            align-items: center;
+            padding: 12px 25px;
+            text-decoration: none;
+            color: #555;
+            transition: all 0.3s ease;
+        }
+        
+        .nav-link:hover, .nav-link.active {
+            color: var(--primary);
+            background: rgba(255,107,157,0.1);
+            border-right: 3px solid var(--primary);
+        }
+        
+        .nav-link i {
+            margin-right: 15px;
+            font-size: 1.2rem;
+            width: 20px;
+            text-align: center;
+        }
+        
+        /* Main Content */
+        .main-content {
+            flex: 1;
+            margin-left: 250px;
+            transition: all 0.3s ease;
+            min-width: 0;
+        }
+        
+        /* Header */
+        .top-nav {
+            background: white;
+            padding: 20px 30px;
+            display: flex;
+            justify-content: space-between;
+            align-items: center;
+            box-shadow: 0 2px 10px rgba(0,0,0,0.05);
+            position: sticky;
+            top: 0;
+            z-index: 10;
+        }
+        
+        .search-bar {
+            display: flex;
+            align-items: center;
+            background: #f5f5f5;
+            border-radius: 30px;
+            padding: 8px 15px;
+            width: 300px;
+        }
+        
+        .search-bar input {
+            border: none;
+            background: transparent;
+            padding: 5px 10px;
+            width: 100%;
+            outline: none;
+            font-family: 'Poppins', sans-serif;
+        }
+        
+        .search-bar i {
+            color: #777;
+        }
+        
+        .user-menu {
+            display: flex;
+            align-items: center;
+            gap: 20px;
+        }
+        
+        .notification-icon {
+            position: relative;
+            color: #555;
+            font-size: 1.2rem;
+        }
+        
+        .notification-badge {
+            position: absolute;
+            top: -5px;
+            right: -5px;
+            background: var(--primary);
+            color: white;
+            width: 18px;
+            height: 18px;
+            border-radius: 50%;
+            font-size: 0.7rem;
+            display: flex;
+            align-items: center;
+            justify-content: center;
+        }
+        
+        .user-profile {
+            display: flex;
+            align-items: center;
+            gap: 10px;
+        }
+        
+        .user-avatar {
+            width: 40px;
+            height: 40px;
+            border-radius: 50%;
+            background: linear-gradient(45deg, var(--primary), var(--secondary));
+            display: flex;
+            align-items: center;
+            justify-content: center;
+            color: white;
+            font-weight: 600;
+        }
+        
+        .user-name {
+            font-weight: 600;
+        }
+        
+        /* Dashboard Content */
+        .dashboard-content {
+            padding: 30px;
+            width: 100%;
+        }
+        
+        .welcome-banner {
+            background: linear-gradient(135deg, var(--primary) 0%, var(--secondary) 100%);
+            color: white;
+            border-radius: 15px;
+            padding: 30px;
+            margin-bottom: 30px;
+            position: relative;
+            overflow: hidden;
+        }
+        
+        .welcome-banner:before {
+            content: '';
+            position: absolute;
+            top: -50px;
+            right: -50px;
+            width: 200px;
+            height: 200px;
+            background: rgba(255,255,255,0.1);
+            border-radius: 50%;
+        }
+        
+        .welcome-banner:after {
+            content: '';
+            position: absolute;
+            bottom: -80px;
+            right: -30px;
+            width: 250px;
+            height: 250px;
+            background: rgba(255,255,255,0.1);
+            border-radius: 50%;
+        }
+        
+        .welcome-banner h2 {
+            font-size: 1.8rem;
+            margin-bottom: 10px;
+            position: relative;
+            z-index: 2;
+        }
+        
+        .welcome-banner p {
+            max-width: 60%;
+            opacity: 0.9;
+            position: relative;
+            z-index: 2;
+        }
+        
+        /* Cycle Overview */
+        .cycle-overview {
+            display: flex;
+            gap: 20px;
+            margin-bottom: 30px;
+        }
+        
+        .cycle-card {
+            background: white;
+            border-radius: 15px;
+            padding: 20px;
+            flex: 1;
+            box-shadow: 0 5px 15px rgba(0,0,0,0.05);
+            transition: all 0.3s ease;
+        }
+        
+        .cycle-card:hover {
+            transform: translateY(-5px);
+            box-shadow: 0 8px 25px rgba(0,0,0,0.1);
+        }
+        
+        .cycle-card h3 {
+            font-size: 1rem;
+            color: #777;
+            margin-bottom: 15px;
+        }
+        
+        .cycle-card .value {
+            font-size: 2rem;
+            font-weight: 700;
+            margin-bottom: 5px;
+        }
+        
+        .cycle-card .description {
+            color: #999;
+            font-size: 0.9rem;
+        }
+        
+        .current-phase {
+            border-top: 3px solid var(--primary);
+        }
+        
+        .next-period {
+            border-top: 3px solid var(--secondary);
+        }
+        
+        .fertile-window {
+            border-top: 3px solid var(--accent);
+        }
+        
+        /* Calendar Section */
+        .calendar-section {
+            background: white;
+            border-radius: 15px;
+            padding: 25px;
+            box-shadow: 0 5px 15px rgba(0,0,0,0.05);
+            margin-bottom: 30px;
+        }
+        
+        .section-header {
+            display: flex;
+            justify-content: space-between;
+            align-items: center;
+            margin-bottom: 20px;
+        }
+        
+        .section-title {
+            font-size: 1.3rem;
+            font-weight: 600;
+        }
+        
+        .view-all {
+            color: var(--primary);
+            text-decoration: none;
+            font-weight: 600;
+            font-size: 0.9rem;
+        }
+        
+        .calendar {
+            width: 100%;
+            border-collapse: collapse;
+        }
+        
+        .calendar th {
+            text-align: center;
+            padding: 10px;
+            color: #777;
+            font-weight: 500;
+        }
+        
+        .calendar td {
+            text-align: center;
+            padding: 15px 10px;
+            border-radius: 10px;
+            cursor: pointer;
+            position: relative;
+        }
+        
+        .calendar td:hover {
+            background: #f9f9f9;
+        }
+        
+        .calendar .today {
+            background: rgba(255,107,157,0.1);
+            color: var(--primary);
+            font-weight: 600;
+        }
+        
+        .calendar .period-day {
+            background: rgba(255,107,157,0.2);
+            color: var(--primary);
+            font-weight: 600;
+        }
+        
+        .calendar .fertile-day {
+            background: rgba(255,209,102,0.2);
+            color: #e6a700;
+            font-weight: 600;
+        }
+        
+        .calendar .ovulation-day:after {
+            content: '•';
+            position: absolute;
+            top: 5px;
+            right: 5px;
+            color: var(--primary);
+            font-size: 1.2rem;
+        }
+        
+        /* Symptoms & Mood */
+        .tracking-section {
+            display: flex;
+            gap: 20px;
+            margin-bottom: 30px;
+        }
+        
+        .tracking-card {
+            background: white;
+            border-radius: 15px;
+            padding: 25px;
+            flex: 1;
+            box-shadow: 0 5px 15px rgba(0,0,0,0.05);
+        }
+        
+        .symptom-item {
+            display: flex;
+            align-items: center;
+            padding: 10px 0;
+            border-bottom: 1px solid #eee;
+        }
+        
+        .symptom-item:last-child {
+            border-bottom: none;
+        }
+        
+        .symptom-icon {
+            width: 30px;
+            height: 30px;
+            border-radius: 50%;
+            background: rgba(255,107,157,0.1);
+            display: flex;
+            align-items: center;
+            justify-content: center;
+            margin-right: 15px;
+            color: var(--primary);
+        }
+        
+        .symptom-info {
+            flex: 1;
+        }
+        
+        .symptom-name {
+            font-weight: 500;
+            margin-bottom: 3px;
+        }
+        
+        .symptom-severity {
+            font-size: 0.8rem;
+            color: #999;
+        }
+        
+        .mood-chart {
+            height: 200px;
+            margin-top: 20px;
+            position: relative;
+        }
+        
+        .mood-scale {
+            position: absolute;
+            left: 0;
+            top: 0;
+            height: 100%;
+            width: 100%;
+            display: flex;
+            flex-direction: column;
+            justify-content: space-between;
+        }
+        
+        .mood-scale-item {
+            display: flex;
+            align-items: center;
+            height: 20%;
+            border-top: 1px dashed #eee;
+            color: #999;
+            font-size: 0.8rem;
+        }
+        
+        .mood-bars {
+            position: absolute;
+            left: 0;
+            top: 0;
+            height: 100%;
+            width: 100%;
+            display: flex;
+            align-items: flex-end;
+            gap: 10px;
+            padding: 0 30px;
+        }
+        
+        .mood-bar {
+            flex: 1;
+            background: linear-gradient(to top, var(--primary), var(--secondary));
+            border-radius: 5px 5px 0 0;
+            position: relative;
+        }
+        
+        .mood-day {
+            position: absolute;
+            bottom: -25px;
+            left: 0;
+            width: 100%;
+            text-align: center;
+            font-size: 0.8rem;
+            color: #777;
+        }
+        
+        /* Health Tips */
+        .health-tips {
+            background: white;
+            border-radius: 15px;
+            padding: 25px;
+            box-shadow: 0 5px 15px rgba(0,0,0,0.05);
+        }
+        
+        .tips-grid {
+            display: grid;
+            grid-template-columns: repeat(auto-fill, minmax(250px, 1fr));
+            gap: 20px;
+            margin-top: 20px;
+        }
+        
+        .tip-card {
+            border-radius: 10px;
+            overflow: hidden;
+            box-shadow: 0 3px 10px rgba(0,0,0,0.1);
+            transition: all 0.3s ease;
+        }
+        
+        .tip-card:hover {
+            transform: translateY(-5px);
+            box-shadow: 0 5px 20px rgba(0,0,0,0.15);
+        }
+        
+        .tip-image {
+            height: 120px;
+            background-size: cover;
+            background-position: center;
+        }
+        
+        .tip-content {
+            padding: 15px;
+        }
+        
+        .tip-category {
+            display: inline-block;
+            background: rgba(255,107,157,0.1);
+            color: var(--primary);
+            padding: 3px 10px;
+            border-radius: 30px;
+            font-size: 0.7rem;
+            font-weight: 600;
+            margin-bottom: 10px;
+        }
+        
+        .tip-title {
+            font-size: 1rem;
+            margin-bottom: 8px;
+        }
+        
+        .tip-excerpt {
+            color: #777;
+            font-size: 0.9rem;
+            margin-bottom: 15px;
+        }
+        
+        .read-more {
+            color: var(--primary);
+            text-decoration: none;
+            font-size: 0.9rem;
+            font-weight: 600;
+        }
+        
+        /* Responsive */
+        @media (max-width: 992px) {
+            .sidebar {
+                width: 80px;
+                overflow: hidden;
+            }
+            
+            .logo span {
+                display: none;
+            }
+            
+            .nav-link span {
+                display: none;
+            }
+            
+            .nav-link {
+                justify-content: center;
+                padding: 15px 0;
+            }
+            
+            .nav-link i {
+                margin-right: 0;
+                font-size: 1.5rem;
+            }
+            
+            .main-content {
+                margin-left: 80px;
+            }
+            
+            .cycle-overview, .tracking-section {
+                flex-direction: column;
+            }
+        }
+        
+        @media (max-width: 768px) {
+            .search-bar {
+                width: 200px;
+            }
+            
+            .user-name {
+                display: none;
+            }
+            
+            .welcome-banner p {
+                max-width: 100%;
+            }
+        }
+        
+        @media (max-width: 576px) {
+            .sidebar {
+                transform: translateX(-100%);
+                position: fixed;
+                top: 0;
+                left: 0;
+                height: 100vh;
+                z-index: 1000;
+                width: 250px;
+                background: white;
+                box-shadow: 2px 0 20px rgba(0,0,0,0.2);
+            }
+            
+            .sidebar.active {
+                transform: translateX(0);
+            }
+            
+            .main-content {
+                margin-left: 0;
+            }
+            
+            .menu-toggle {
+                display: block;
+                font-size: 1.5rem;
+                color: #555;
+                cursor: pointer;
+            }
+            
+            .search-bar {
+                display: none;
+            }
+        }
+        /* Health Tips Specific Styles */
+        .health-header {
+            display: flex;
+            justify-content: space-between;
+            align-items: center;
+            margin-bottom: 30px;
+        }
+        
+        .health-title {
+            font-size: 1.8rem;
+            color: var(--dark);
+        }
+        
+        .health-categories {
+            display: flex;
+            gap: 15px;
+            margin-bottom: 30px;
+            flex-wrap: wrap;
+        }
+        
+        .category-btn {
+            padding: 8px 20px;
+            border-radius: 20px;
+            border: 1px solid #ddd;
+            background: white;
+            font-family: 'Poppins', sans-serif;
+            cursor: pointer;
+            transition: all 0.3s ease;
+        }
+        
+        .category-btn.active {
+            background: var(--primary);
+            color: white;
+            border-color: var(--primary);
+        }
+        
+        .health-grid {
+            display: grid;
+            grid-template-columns: repeat(auto-fill, minmax(300px, 1fr));
+            gap: 25px;
+            margin-bottom: 40px;
+        }
+        
+        .health-card {
+            background: white;
+            border-radius: 15px;
+            overflow: hidden;
+            box-shadow: 0 5px 15px rgba(0,0,0,0.05);
+            transition: all 0.3s ease;
+        }
+        
+        .health-card:hover {
+            transform: translateY(-5px);
+            box-shadow: 0 8px 25px rgba(0,0,0,0.1);
+        }
+        
+        .health-image {
+            height: 180px;
+            background-size: cover;
+            background-position: center;
+        }
+        
+        .health-content {
+            padding: 20px;
+        }
+        
+        .health-category {
+            display: inline-block;
+            background: rgba(255,107,157,0.1);
+            color: var(--primary);
+            padding: 3px 10px;
+            border-radius: 30px;
+            font-size: 0.7rem;
+            font-weight: 600;
+            margin-bottom: 10px;
+        }
+        
+        .health-title {
+            font-size: 1.2rem;
+            font-weight: 600;
+            margin-bottom: 10px;
+        }
+        
+        .health-excerpt {
+            color: #555;
+            line-height: 1.6;
+            margin-bottom: 15px;
+            font-size: 0.9rem;
+        }
+        
+        .health-meta {
+            display: flex;
+            justify-content: space-between;
+            align-items: center;
+            font-size: 0.8rem;
+            color: #999;
+        }
+        
+        .read-more {
+            color: var(--primary);
+            text-decoration: none;
+            font-weight: 600;
+            display: inline-flex;
+            align-items: center;
+            gap: 5px;
+        }
+        
+        .featured-article {
+            background: white;
+            border-radius: 15px;
+            overflow: hidden;
+            box-shadow: 0 5px 15px rgba(0,0,0,0.05);
+            margin-bottom: 40px;
+            display: flex;
+        }
+        
+        .featured-image {
+            width: 40%;
+            background-size: cover;
+            background-position: center;
+        }
+        
+        .featured-content {
+            width: 60%;
+            padding: 30px;
+        }
+        
+        .featured-category {
+            display: inline-block;
+            background: rgba(255,107,157,0.1);
+            color: var(--primary);
+            padding: 5px 15px;
+            border-radius: 30px;
+            font-size: 0.8rem;
+            font-weight: 600;
+            margin-bottom: 15px;
+        }
+        
+        .featured-title {
+            font-size: 1.5rem;
+            font-weight: 600;
+            margin-bottom: 15px;
+        }
+        
+        .featured-excerpt {
+            color: #555;
+            line-height: 1.6;
+            margin-bottom: 20px;
+        }
+        
+        /* Responsive adjustments */
+        @media (max-width: 992px) {
+            .featured-article {
+                flex-direction: column;
+            }
+            
+            .featured-image {
+                width: 100%;
+                height: 200px;
+            }
+            
+            .featured-content {
+                width: 100%;
+            }
+        }
+        
+        @media (max-width: 768px) {
+            .health-header {
+                flex-direction: column;
+                align-items: flex-start;
+                gap: 15px;
+            }
+            
+            .health-grid {
+                grid-template-columns: 1fr;
+            }
+        }
+
+        .nutrition-tips {
+            display: grid;
+            grid-template-columns: repeat(auto-fill, minmax(250px, 1fr));
+            gap: 20px;
+            margin-bottom: 40px;
+        }
+
+        /* Nutrition, Exercise, Mental Health, Cycle Tracking, Self-Care Tips Section Styles */
+        .nutrition-tips,
+        .exercise-tips,
+        .mental-health,
+        .cycle-tracking,
+        .self-care {
+            display: grid;
+            grid-template-columns: repeat(auto-fill, minmax(250px, 1fr));
+            gap: 20px;
+            margin-bottom: 40px;
+        }
+
+        .nutrition-tips .health-card,
+        .exercise-tips .health-card,
+        .mental-health .health-card,
+        .cycle-tracking .health-card,
+        .self-care .health-card {
+            background: white;
+            border-radius: 15px;
+            overflow: hidden;
+            box-shadow: 0 5px 15px rgba(0,0,0,0.05);
+            transition: all 0.3s ease;
+        }
+
+        .nutrition-tips .health-card:hover,
+        .exercise-tips .health-card:hover,
+        .mental-health .health-card:hover,
+        .cycle-tracking .health-card:hover,
+        .self-care .health-card:hover {
+            transform: translateY(-5px);
+            box-shadow: 0 8px 25px rgba(0,0,0,0.1);
+        }
+
+        .nutrition-tips .health-image,
+        .exercise-tips .health-image,
+        .mental-health .health-image,
+        .cycle-tracking .health-image,
+        .self-care .health-image {
+            height: 180px;
+            background-size: cover;
+            background-position: center;
+        }
+
+        .nutrition-tips .health-content,
+        .exercise-tips .health-content,
+        .mental-health .health-content,
+        .cycle-tracking .health-content,
+        .self-care .health-content {
+            padding: 20px;
+        }
+
+        .nutrition-tips .health-category,
+        .exercise-tips .health-category,
+        .mental-health .health-category,
+        .cycle-tracking .health-category,
+        .self-care .health-category {
+            display: inline-block;
+            background: rgba(255,107,157,0.1);
+            color: var(--primary);
+            padding: 3px 10px;
+            border-radius: 30px;
+            font-size: 0.7rem;
+            font-weight: 600;
+            margin-bottom: 10px;
+        }
+
+        .nutrition-tips .health-title,
+        .exercise-tips .health-title,
+        .mental-health .health-title,
+        .cycle-tracking .health-title,
+        .self-care .health-title {
+            font-size: 1.2rem;
+            font-weight: 600;
+            margin-bottom: 10px;
+        }
+
+        .nutrition-tips .health-excerpt,
+        .exercise-tips .health-excerpt,
+        .mental-health .health-excerpt,
+        .cycle-tracking .health-excerpt,
+        .self-care .health-excerpt {
+            color: #555;
+            line-height: 1.6;
+            margin-bottom: 15px;
+            font-size: 0.9rem;
+        }
+
+        /* Responsive for all tips sections */
+        @media (max-width: 768px) {
+            .nutrition-tips,
+            .exercise-tips,
+            .mental-health,
+            .cycle-tracking,
+            .self-care {
+                grid-template-columns: 1fr;
+            }
+        }
+    </style>
+</head>
+<body>
+    <!-- Sidebar -->
+    <div class="sidebar" id="sidebar">
+        <div class="logo">Petal<span>Flow</span></div>
+        <ul class="nav-menu">
+            <li class="nav-item">
+                <a href="home.html" class="nav-link">
+                    <i class="fas fa-home"></i>
+                    <span>Dashboard</span>
+                </a>
+            </li>
+            <li class="nav-item">
+                <a href="calendar.html" class="nav-link">
+                    <i class="fas fa-calendar-alt"></i>
+                    <span>Calendar</span>
+                </a>
+            </li>
+            <li class="nav-item">
+                <a href="tracker.html" class="nav-link">
+                    <i class="fas fa-chart-line"></i>
+                    <span>Tracker</span>
+                </a>
+            </li>
+            <li class="nav-item">
+                <a href="insights.html" class="nav-link">
+                    <i class="fas fa-lightbulb"></i>
+                    <span>Insights</span>
+                </a>
+            </li>
+            <li class="nav-item">
+                <a href="health.html" class="nav-link active">
+                    <i class="fas fa-heartbeat"></i>
+                    <span>Health Tips</span>
+                </a>
+            </li>
+            <li class="nav-item">
+                <a href="community.html" class="nav-link">
+                    <i class="fas fa-users"></i>
+                    <span>Community</span>
+                </a>
+            </li>
+                            <li class="nav-item">
+                    <a href="familysharing.html" class="nav-link">
+                        <i class="fas fa-users-between-lines"></i>
+                        <span>Family Sharing</span>
+                    </a>
+                </li>
+            <li class="nav-item">
+                <a href="settings.html" class="nav-link">
+                    <i class="fas fa-cog"></i>
+                    <span>Settings</span>
+                </a>
+            </li>
+             <!-- ...existing nav items... -->
+            <li class="nav-item">
+                <a href="help.html" class="nav-link">
+                       <i class="fas fa-hands-helping"></i>
+                    <span> Help</span>
+                </a>
+            </li>
+            <li class="nav-item">
+                <a href="chat.html" class="nav-link">
+                    <i class="fas fa-comments"></i>
+                    <span>AI Assistant</span>
+                </a>
+            </li>
+            <li class="nav-item">
+                <a href="quiz.html" class="nav-link">
+                    <i class="fas fa-question-circle"></i>
+                    <span>Quiz</span>
+                </a>
+            </li>
+    
+        </ul>
+    </div>
+    
+    <!-- Main Content -->
+    <div class="main-content">
+        <!-- Top Navigation -->
+        <div class="top-nav">
+            <div class="menu-toggle" id="menuToggle">
+                <i class="fas fa-bars"></i>
+            </div>
+            <div class="search-bar">
+                <i class="fas fa-search"></i>
+                <input type="text" placeholder="Search...">
+            </div>
+            <div class="user-menu">
+                <a href="#" class="notification-icon">
+                    <i class="fas fa-bell"></i>
+                    <span class="notification-badge">3</span>
+                </a>
+                <div class="user-profile">
+                    <div class="user-avatar">JS</div>
+                    <div class="user-name">Jane Smith</div>
+                </div>
+            </div>
+        </div>
+        
+        <!-- Health Tips Content -->
+        <div class="dashboard-content">
+            <div class="health-header animate__animated animate__fadeIn">
+                <h1 class="health-title">Health & Wellness Tips</h1>
+            </div>
+            
+            <div class="health-categories animate__animated animate__fadeIn">
+                <button class="category-btn active">All</button>
+                <button class="category-btn">Nutrition</button>
+                <button class="category-btn">Exercise</button>
+                <button class="category-btn">Mental Health</button>
+                <button class="category-btn">Cycle Tracking</button>
+                <button class="category-btn">Self-Care</button>
+            </div>
+            
+            <div class="featured-article animate__animated animate__fadeIn">
+                <div class="featured-image" style="background-image: url('cycle3.jpg');"></div>
+                <div class="featured-content">
+                    <div class="featured-category">Featured Article</div>
+                    <h2 class="featured-title">Syncing Your Lifestyle With Your Menstrual Cycle</h2>
+                    <p class="featured-excerpt">Discover how to optimize your nutrition, exercise, and productivity by aligning them with the different phases of your menstrual cycle for better energy, mood, and overall health.</p>
+                    <a href="#" class="read-more">Read Full Article <i class="fas fa-arrow-right"></i></a>
+                </div>
+            </div>
+            
+            <div class="health-grid">
+                <div class="health-card animate__animated animate__fadeInUp">
+                    <div class="health-image" style="background-image: url('nutrient.jpg');"></div>
+                    <div class="health-content">
+                        <div class="health-category">Nutrition</div>
+                        <h3 class="health-title">Iron-Rich Foods for Energy During Your Period</h3>
+                        <p class="health-excerpt">Combat period fatigue with these delicious iron-rich foods that can help replenish your energy levels during menstruation.</p>
+                        <div class="health-meta">
+                            <span>5 min read</span>
+                            <a href="#" class="read-more">Read <i class="fas fa-arrow-right"></i></a>
+                        </div>
+                    </div>
+                </div>
+                
+                <div class="health-card animate__animated animate__fadeInUp animate__delay-1s">
+                    <div class="health-image" style="background-image: url('exe1.jpg');"></div>
+                    <div class="health-content">
+                        <div class="health-category">Exercise</div>
+                        <h3 class="health-title">Yoga Poses for Menstrual Cramp Relief</h3>
+                        <p class="health-excerpt">These gentle yoga poses can help alleviate menstrual cramps and promote relaxation during your period.</p>
+                        <div class="health-meta">
+                            <span>7 min read</span>
+                            <a href="#" class="read-more">Read <i class="fas fa-arrow-right"></i></a>
+                        </div>
+                    </div>
+                </div>
+                
+                <div class="health-card animate__animated animate__fadeInUp animate__delay-2s">
+                    <div class="health-image" style="background-image: url('mentalhealth.jpg');"></div>
+                    <div class="health-content">
+                        <div class="health-category">Mental Health</div>
+                        <h3 class="health-title">Managing PMS Mood Swings Naturally</h3>
+                        <p class="health-excerpt">Discover natural strategies to help stabilize your mood and reduce irritability in the days before your period.</p>
+                        <div class="health-meta">
+                            <span>8 min read</span>
+                            <a href="#" class="read-more">Read <i class="fas fa-arrow-right"></i></a>
+                        </div>
+                    </div>
+                </div>
+                
+                <div class="health-card animate__animated animate__fadeInUp">
+                    <div class="health-image" style="background-image: url('selfcare.jpg');"></div>
+                    <div class="health-content">
+                        <div class="health-category">Self-Care</div>
+                        <h3 class="health-title">Creating a Period Self-Care Routine</h3>
+                        <p class="health-excerpt">Build a personalized self-care routine that honors your body's needs during menstruation.</p>
+                        <div class="health-meta">
+                            <span>6 min read</span>
+                            <a href="#" class="read-more">Read <i class="fas fa-arrow-right"></i></a>
+                        </div>
+                    </div>
+                </div>
+                
+                <div class="health-card animate__animated animate__fadeInUp animate__delay-1s">
+                    <div class="health-image" style="background-image: url('nutreint2.jpg');"></div>
+                    <div class="health-content">
+                        <div class="health-category">Nutrition</div>
+                        <h3 class="health-title">Hydration Tips for Bloating Relief</h3>
+                        <p class="health-excerpt">Proper hydration strategies can help reduce bloating and water retention during your cycle.</p>
+                        <div class="health-meta">
+                            <span>4 min read</span>
+                            <a href="#" class="read-more">Read <i class="fas fa-arrow-right"></i></a>
+                        </div>
+                    </div>
+                </div>
+                
+                <div class="health-card animate__animated animate__fadeInUp animate__delay-2s">
+                    <div class="health-image" style="background-image: url('cycle1.jpg');"></div>
+                    <div class="health-content">
+                        <div class="health-category">Cycle Tracking</div>
+                        <h3 class="health-title">Understanding Your Fertility Signals</h3>
+                        <p class="health-excerpt">Learn to recognize the natural signs your body gives you about fertility throughout your cycle.</p>
+                        <div class="health-meta">
+                            <span>10 min read</span>
+                            <a href="#" class="read-more">Read <i class="fas fa-arrow-right"></i></a>
+                        </div>
+                    </div>
+                </div>
+            </div>
+
+            <!-- Nutrition Tips Section (hidden by default) -->
+            <div class="nutrition-tips" style="display: none;">
+                <div class="health-card animate__animated animate__fadeInUp">
+                    <div class="health-image" style="background-image: url('nutrient.jpg');"></div>
+                    <div class="health-content">
+                        <div class="health-category">Nutrition</div>
+                        <h3 class="health-title">Best Foods for Your Period</h3>
+                        <p class="health-excerpt">Leafy greens, lentils, and lean meats help replenish iron lost during menstruation. Include vitamin C-rich foods like oranges to boost iron absorption.</p>
+                    </div>
+                </div>
+                <div class="health-card animate__animated animate__fadeInUp">
+                    <div class="health-image" style="background-image: url('');"></div>
+                    <div class="health-content">
+                        <div class="health-category">Nutrition</div>
+                        <h3 class="health-title">Hydration Matters</h3>
+                        <p class="health-excerpt">Staying hydrated can help reduce bloating and fatigue. Aim for at least 8 glasses of water a day, and include hydrating fruits like watermelon and cucumber.</p>
+                    </div>
+                </div>
+                <div class="health-card animate__animated animate__fadeInUp">
+                    <div class="health-image" style="background-image: url('nutreint2.jpg');"></div>
+                    <div class="health-content">
+                        <div class="health-category">Nutrition</div>
+                        <h3 class="health-title">Magnesium for Cramps</h3>
+                        <p class="health-excerpt">Foods rich in magnesium, such as nuts, seeds, and dark chocolate, may help ease menstrual cramps and improve mood.</p>
+                    </div>
+                </div>
+            </div>
+
+            <!-- Exercise Tips Section (hidden by default) -->
+            <div class="exercise-tips" style="display: none;">
+                <div class="health-card animate__animated animate__fadeInUp">
+                    <div class="health-image" style="background-image: url('https://i.imgur.com/3x3QZQe.png');"></div>
+                    <div class="health-content">
+                        <div class="health-category">Exercise</div>
+                        <h3 class="health-title">Gentle Yoga for Cramps</h3>
+                        <p class="health-excerpt">Try gentle yoga poses like Child’s Pose and Cat-Cow to relieve menstrual cramps and relax your body during your period.</p>
+                    </div>
+                </div>
+                <div class="health-card animate__animated animate__fadeInUp">
+                    <div class="health-image" style="background-image: url('https://i.imgur.com/3x3QZQe.png');"></div>
+                    <div class="health-content">
+                        <div class="health-category">Exercise</div>
+                        <h3 class="health-title">Walking for Mood Boost</h3>
+                        <p class="health-excerpt">A brisk walk can help boost your mood and energy levels, especially on days when you feel sluggish or low.</p>
+                    </div>
+                </div>
+                <div class="health-card animate__animated animate__fadeInUp">
+                    <div class="health-image" style="background-image: url('https://i.imgur.com/3x3QZQe.png');"></div>
+                    <div class="health-content">
+                        <div class="health-category">Exercise</div>
+                        <h3 class="health-title">Low-Impact Workouts</h3>
+                        <p class="health-excerpt">Opt for low-impact workouts like swimming or cycling to stay active without putting too much strain on your body during menstruation.</p>
+                    </div>
+                </div>
+            </div>
+
+            <!-- Mental Health Tips Section (hidden by default) -->
+            <div class="mental-health" style="display: none;">
+                <div class="health-card animate__animated animate__fadeInUp">
+                    <div class="health-image" style="background-image: url('https://i.imgur.com/3x3QZQe.png');"></div>
+                    <div class="health-content">
+                        <div class="health-category">Mental Health</div>
+                        <h3 class="health-title">Mindfulness for PMS</h3>
+                        <p class="health-excerpt">Practice mindfulness or meditation to help manage PMS symptoms like anxiety and irritability.</p>
+                    </div>
+                </div>
+                <div class="health-card animate__animated animate__fadeInUp">
+                    <div class="health-image" style="background-image: url('https://i.imgur.com/3x3QZQe.png');"></div>
+                    <div class="health-content">
+                        <div class="health-category">Mental Health</div>
+                        <h3 class="health-title">Journaling Emotions</h3>
+                        <p class="health-excerpt">Journaling your thoughts and feelings can help you process emotions and notice patterns related to your cycle.</p>
+                    </div>
+                </div>
+                <div class="health-card animate__animated animate__fadeInUp">
+                    <div class="health-image" style="background-image: url('https://i.imgur.com/3x3QZQe.png');"></div>
+                    <div class="health-content">
+                        <div class="health-category">Mental Health</div>
+                        <h3 class="health-title">Connect with Others</h3>
+                        <p class="health-excerpt">Talking to friends or joining a community can provide support and reduce feelings of isolation during tough days.</p>
+                    </div>
+                </div>
+            </div>
+
+            <!-- Cycle Tracking Tips Section (hidden by default) -->
+            <div class="cycle-tracking" style="display: none;">
+                <div class="health-card animate__animated animate__fadeInUp">
+                    <div class="health-image" style="background-image: url('https://i.imgur.com/3x3QZQe.png');"></div>
+                    <div class="health-content">
+                        <div class="health-category">Cycle Tracking</div>
+                        <h3 class="health-title">Track Your Symptoms</h3>
+                        <p class="health-excerpt">Record symptoms daily to identify patterns and predict your period more accurately.</p>
+                    </div>
+                </div>
+                <div class="health-card animate__animated animate__fadeInUp">
+                    <div class="health-image" style="background-image: url('https://i.imgur.com/3x3QZQe.png');"></div>
+                    <div class="health-content">
+                        <div class="health-category">Cycle Tracking</div>
+                        <h3 class="health-title">Monitor Cycle Length</h3>
+                        <p class="health-excerpt">Keep track of your cycle length each month to spot irregularities and share with your healthcare provider if needed.</p>
+                    </div>
+                </div>
+                <div class="health-card animate__animated animate__fadeInUp">
+                    <div class="health-image" style="background-image: url('https://i.imgur.com/3x3QZQe.png');"></div>
+                    <div class="health-content">
+                        <div class="health-category">Cycle Tracking</div>
+                        <h3 class="health-title">Note Mood Changes</h3>
+                        <p class="health-excerpt">Logging mood changes can help you prepare for emotional shifts and practice self-care at the right times.</p>
+                    </div>
+                </div>
+            </div>
+
+            <!-- Self-Care Tips Section (hidden by default) -->
+            <div class="self-care" style="display: none;">
+                <div class="health-card animate__animated animate__fadeInUp">
+                    <div class="health-image" style="background-image: url('https://i.imgur.com/3x3QZQe.png');"></div>
+                    <div class="health-content">
+                        <div class="health-category">Self-Care</div>
+                        <h3 class="health-title">Warm Baths for Relief</h3>
+                        <p class="health-excerpt">Taking a warm bath can help relax your muscles and ease period cramps.</p>
+                    </div>
+                </div>
+                <div class="health-card animate__animated animate__fadeInUp">
+                    <div class="health-image" style="background-image: url('https://i.imgur.com/3x3QZQe.png');"></div>
+                    <div class="health-content">
+                        <div class="health-category">Self-Care</div>
+                        <h3 class="health-title">Rest When Needed</h3>
+                        <p class="health-excerpt">Listen to your body and allow yourself extra rest or naps when you feel tired during your cycle.</p>
+                    </div>
+                </div>
+                <div class="health-card animate__animated animate__fadeInUp">
+                    <div class="health-image" style="background-image: url('https://i.imgur.com/3x3QZQe.png');"></div>
+                    <div class="health-content">
+                        <div class="health-category">Self-Care</div>
+                        <h3 class="health-title">Pamper Yourself</h3>
+                        <p class="health-excerpt">Use this time to pamper yourself with your favorite skincare, a good book, or a relaxing activity.</p>
+                    </div>
+                </div>
+            </div>
+        </div>
+    </div>
+    
+    <script>
+      document.querySelectorAll('.category-btn').forEach(btn => {
+    btn.addEventListener('click', function () {
+        // Remove 'active' from all buttons
+        document.querySelectorAll('.category-btn').forEach(b => b.classList.remove('active'));
+        this.classList.add('active');
+
+        const category = this.textContent.trim();
+
+        const allSections = {
+            'All': document.querySelector('.health-grid'),
+            'Nutrition': document.querySelector('.nutrition-tips'),
+            'Exercise': document.querySelector('.exercise-tips'),
+            'Mental Health': document.querySelector('.mental-health'),
+            'Cycle Tracking': document.querySelector('.cycle-tracking'),
+            'Self-Care': document.querySelector('.self-care')
+        };
+
+        // Hide all sections
+        Object.values(allSections).forEach(section => {
+            if (section) section.style.display = 'none';
+        });
+
+        // Show the selected section
+        if (allSections[category]) {
+            allSections[category].style.display = 'grid';
+        } else if (category === 'All') {
+            allSections['All'].style.display = 'grid';
+        }
+    });
+});
+
+
+    </script>
+</body>
+</html>

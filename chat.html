@@ -1,0 +1,330 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>AI Assistant - PetalFlow</title>
+    <link href="https://fonts.googleapis.com/css2?family=Poppins:wght@300;400;600;700&family=Dancing+Script:wght@700&display=swap" rel="stylesheet">
+    <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.4.0/css/all.min.css">
+    <style>
+        /* Inherit your existing styles */
+        :root {
+            --primary: #f8105d;
+            --secondary: #6b4cf5;
+            --dark: #2a2344;
+            --light: #fef6ff;
+            --accent: #ffd166;
+        }
+
+        .chat-container {
+            max-width: 800px;
+            margin: 20px auto;
+            background: white;
+            border-radius: 15px;
+            box-shadow: 0 5px 15px rgba(0,0,0,0.05);
+            overflow: hidden;
+        }
+
+        .chat-header {
+            background: linear-gradient(135deg, var(--primary) 0%, var(--secondary) 100%);
+            color: white;
+            padding: 20px;
+            display: flex;
+            align-items: center;
+            justify-content: space-between;
+        }
+
+        .chat-messages {
+            height: 500px;
+            overflow-y: auto;
+            padding: 20px;
+        }
+
+        .message {
+            margin-bottom: 20px;
+            display: flex;
+            align-items: flex-start;
+        }
+
+        .message.user {
+            flex-direction: row-reverse;
+        }
+
+        .message-content {
+            background: #f5f5f5;
+            padding: 15px;
+            border-radius: 15px;
+            max-width: 70%;
+            margin: 0 10px;
+        }
+
+        .message.user .message-content {
+            background: var(--primary);
+            color: white;
+        }
+
+        .message-avatar {
+            width: 40px;
+            height: 40px;
+            border-radius: 50%;
+            display: flex;
+            align-items: center;
+            justify-content: center;
+            background: var(--secondary);
+            color: white;
+        }
+
+        .chat-input {
+            padding: 20px;
+            border-top: 1px solid #eee;
+            display: flex;
+            align-items: center;
+            gap: 10px;
+        }
+
+        .chat-input input {
+            flex: 1;
+            padding: 12px 20px;
+            border: 1px solid #eee;
+            border-radius: 30px;
+            outline: none;
+            font-family: 'Poppins', sans-serif;
+        }
+
+        .chat-input button {
+            background: var(--primary);
+            color: white;
+            border: none;
+            width: 40px;
+            height: 40px;
+            border-radius: 50%;
+            cursor: pointer;
+            display: flex;
+            align-items: center;
+            justify-content: center;
+            transition: all 0.3s ease;
+        }
+
+        .chat-input button:hover {
+            transform: scale(1.1);
+        }
+
+        .voice-indicator {
+            display: none;
+            align-items: center;
+            gap: 10px;
+            color: var(--primary);
+            font-size: 0.9rem;
+        }
+
+        .voice-indicator.active {
+            display: flex;
+        }
+
+        .voice-waves {
+            display: flex;
+            align-items: center;
+            gap: 3px;
+        }
+
+        .wave {
+            width: 3px;
+            height: 15px;
+            background: var(--primary);
+            animation: wave 1s infinite ease-in-out;
+        }
+
+        @keyframes wave {
+            0%, 100% { transform: scaleY(0.5); }
+            50% { transform: scaleY(1); }
+        }
+    </style>
+</head>
+<body>
+    <div class="chat-container">
+        <div class="chat-header">
+            <h2>AI Assistant</h2>
+            <button id="voiceToggle" class="voice-toggle">
+                <i class="fas fa-microphone"></i>
+            </button>
+        </div>
+        <div class="chat-messages" id="chatMessages"></div>
+        <div class="voice-indicator" id="voiceIndicator">
+            <div class="voice-waves">
+                <div class="wave" style="animation-delay: 0s"></div>
+                <div class="wave" style="animation-delay: 0.2s"></div>
+                <div class="wave" style="animation-delay: 0.4s"></div>
+            </div>
+            <span>Listening...</span>
+        </div>
+        <div class="chat-input">
+            <input type="text" id="messageInput" placeholder="Type your message...">
+            <button id="sendButton">
+                <i class="fas fa-paper-plane"></i>
+            </button>
+            <button id="micButton">
+                <i class="fas fa-microphone"></i>
+            </button>
+        </div>
+    <
+    <script        // Add this to your ChatBot class in the script section
+        
+        class ChatBot {
+            constructor() {
+                this.messageInput = document.getElementById('messageInput');
+                this.sendButton = document.getElementById('sendButton');
+                this.micButton = document.getElementById('micButton');
+                this.chatMessages = document.getElementById('chatMessages');
+                this.voiceIndicator = document.getElementById('voiceIndicator');
+                
+                this.recognition = new (window.SpeechRecognition || window.webkitSpeechRecognition)();
+                this.synthesis = window.speechSynthesis;
+                
+                this.setupEventListeners();
+                this.setupSpeechRecognition();
+            }
+
+            async askMood() {
+                const message = {
+                    type: 'bot',
+                    text: 'How are you feeling? Please describe your mood or what\'s on your mind.'
+                };
+                this.displayMessage(message);
+
+                // Wait for user's mood description
+                const moodDescription = await this.getUserInput();
+
+                try {
+                    // Get recommendations based on mood analysis
+                    const response = await fetch('/api/chat/mood', {
+                        method: 'POST',
+                        headers: {
+                            'Content-Type': 'application/json',
+                            'Authorization': `Bearer ${localStorage.getItem('token')}`
+                        },
+                        body: JSON.stringify({ message: moodDescription })
+                    });
+
+                    const recommendations = await response.json();
+                    
+                    // Display recommendations
+                    this.displayMessage({
+                        type: 'bot',
+                        text: `${recommendations.aiSuggestions}\n\nHere are some personalized recommendations for you:\n\n🎵 Music: ${recommendations.music.join(', ')}\n\n🎬 Videos: ${recommendations.videos.join(', ')}\n\n🎮 Games: ${recommendations.games.join(', ')}`
+                    });
+
+                    // Ask if they want to try any of the recommendations
+                    this.displayMessage({
+                        type: 'bot',
+                        text: 'Would you like me to help you find any of these recommendations? Just let me know what interests you!'
+                    });
+                } catch (error) {
+                    console.error('Error:', error);
+                    this.displayMessage({
+                        type: 'bot',
+                        text: 'I encountered an error while analyzing your mood. Let\'s try again.'
+                    });
+                }
+            }
+
+            // Add this to your existing setupEventListeners method
+            setupEventListeners() {
+                this.sendButton.addEventListener('click', () => this.sendMessage());
+                this.messageInput.addEventListener('keypress', (e) => {
+                    if (e.key === 'Enter') this.sendMessage();
+                });
+                this.micButton.addEventListener('click', () => this.toggleVoiceInput());
+            }
+
+            setupSpeechRecognition() {
+                this.recognition.continuous = false;
+                this.recognition.interimResults = false;
+                this.recognition.lang = 'en-US';
+
+                this.recognition.onresult = (event) => {
+                    const transcript = event.results[0][0].transcript;
+                    this.messageInput.value = transcript;
+                    this.sendMessage();
+                };
+
+                this.recognition.onend = () => {
+                    this.voiceIndicator.classList.remove('active');
+                    this.micButton.classList.remove('active');
+                };
+            }
+
+            async sendMessage() {
+                const message = this.messageInput.value.trim();
+                if (!message) return;
+
+                this.addMessage(message, true);
+                this.messageInput.value = '';
+
+                try {
+                    const response = await this.getAIResponse(message);
+                    this.addMessage(response, false);
+                    this.speakResponse(response);
+                } catch (error) {
+                    console.error('Error:', error);
+                    this.addMessage('Sorry, I encountered an error. Please try again.', false);
+                }
+            }
+
+            async getAIResponse(message) {
+                // Replace with your actual API endpoint
+                const response = await fetch('/api/chat', {
+                    method: 'POST',
+                    headers: {
+                        'Content-Type': 'application/json',
+                        'Authorization': `Bearer ${localStorage.getItem('token')}`
+                    },
+                    body: JSON.stringify({ message })
+                });
+
+                if (!response.ok) throw new Error('API request failed');
+                const data = await response.json();
+                return data.response;
+            }
+
+            addMessage(content, isUser) {
+                const messageDiv = document.createElement('div');
+                messageDiv.className = `message ${isUser ? 'user' : 'bot'}`;
+                
+                const avatar = document.createElement('div');
+                avatar.className = 'message-avatar';
+                avatar.innerHTML = isUser ? 'U' : 'AI';
+
+                const messageContent = document.createElement('div');
+                messageContent.className = 'message-content';
+                messageContent.textContent = content;
+
+                messageDiv.appendChild(avatar);
+                messageDiv.appendChild(messageContent);
+                this.chatMessages.appendChild(messageDiv);
+                this.chatMessages.scrollTop = this.chatMessages.scrollHeight;
+            }
+
+            toggleVoiceInput() {
+                if (this.recognition.state === 'running') {
+                    this.recognition.stop();
+                } else {
+                    this.recognition.start();
+                    this.voiceIndicator.classList.add('active');
+                    this.micButton.classList.add('active');
+                }
+            }
+
+            speakResponse(text) {
+                const utterance = new SpeechSynthesisUtterance(text);
+                utterance.lang = 'en-US';
+                this.synthesis.speak(utterance);
+            }
+        }
+
+        // Initialize chatbot when page loads
+        document.addEventListener('DOMContentLoaded', () => {
+            const chatbot = new ChatBot();
+        });
+    </script>
+</body>
+</html>

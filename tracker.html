@@ -1,0 +1,1149 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Tracker - PetalFlow</title>
+    <link href="https://fonts.googleapis.com/css2?family=Poppins:wght@300;400;600;700&family=Dancing+Script:wght@700&display=swap" rel="stylesheet">
+    <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/animate.css/4.1.1/animate.min.css">
+    <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.4.0/css/all.min.css">
+    <style>
+        /* (Include all the CSS from home.html here) */
+        :root {
+            --primary: #fa1a64;
+            --secondary: #7f62ff;
+            --dark: #2a2344;
+            --light: #fef6ff;
+            --accent: #ffd166;
+        }
+        
+        * {
+            margin: 0;
+            padding: 0;
+            box-sizing: border-box;
+        }
+        
+        body {
+            font-family: 'Poppins', sans-serif;
+            background: #fafafa;
+            color: var(--dark);
+            display: flex;
+            min-height: 100vh;
+        }
+        
+        /* Sidebar */
+        .sidebar {
+            width: 250px;
+            background: white;
+            box-shadow: 2px 0 20px rgba(0,0,0,0.05);
+            padding: 30px 0;
+            position: fixed;
+            height: 100vh;
+            transition: all 0.3s ease;
+            z-index: 100;
+                        overflow-y: auto; /* Make sidebar scrollable */
+
+        }
+        
+        .logo {
+            font-family: 'Dancing Script', cursive;
+            font-size: 2rem;
+            font-weight: 700;
+            color: var(--primary);
+            text-align: center;
+            margin-bottom: 40px;
+            padding: 0 20px;
+        }
+        
+        .nav-menu {
+            list-style: none;
+        }
+        
+        .nav-item {
+            margin-bottom: 5px;
+        }
+        
+        .nav-link {
+            display: flex;
+            align-items: center;
+            padding: 12px 25px;
+            text-decoration: none;
+            color: #555;
+            transition: all 0.3s ease;
+        }
+        
+        .nav-link:hover, .nav-link.active {
+            color: var(--primary);
+            background: rgba(255,107,157,0.1);
+            border-right: 3px solid var(--primary);
+        }
+        
+        .nav-link i {
+            margin-right: 15px;
+            font-size: 1.2rem;
+            width: 20px;
+            text-align: center;
+        }
+        
+        /* Main Content */
+        .main-content {
+            flex: 1;
+            margin-left: 250px;
+            transition: all 0.3s ease;
+        }
+        
+        /* Header */
+        .top-nav {
+            background: white;
+            padding: 20px 30px;
+            display: flex;
+            justify-content: space-between;
+            align-items: center;
+            box-shadow: 0 2px 10px rgba(0,0,0,0.05);
+            position: sticky;
+            top: 0;
+            z-index: 10;
+        }
+        
+        .search-bar {
+            display: flex;
+            align-items: center;
+            background: #f5f5f5;
+            border-radius: 30px;
+            padding: 8px 15px;
+            width: 300px;
+        }
+        
+        .search-bar input {
+            border: none;
+            background: transparent;
+            padding: 5px 10px;
+            width: 100%;
+            outline: none;
+            font-family: 'Poppins', sans-serif;
+        }
+        
+        .search-bar i {
+            color: #777;
+        }
+        
+        .user-menu {
+            display: flex;
+            align-items: center;
+            gap: 20px;
+        }
+        
+        .notification-icon {
+            position: relative;
+            color: #555;
+            font-size: 1.2rem;
+        }
+        
+        .notification-badge {
+            position: absolute;
+            top: -5px;
+            right: -5px;
+            background: var(--primary);
+            color: white;
+            width: 18px;
+            height: 18px;
+            border-radius: 50%;
+            font-size: 0.7rem;
+            display: flex;
+            align-items: center;
+            justify-content: center;
+        }
+        
+        .user-profile {
+            display: flex;
+            align-items: center;
+            gap: 10px;
+        }
+        
+        .user-avatar {
+            width: 40px;
+            height: 40px;
+            border-radius: 50%;
+            background: linear-gradient(45deg, var(--primary), var(--secondary));
+            display: flex;
+            align-items: center;
+            justify-content: center;
+            color: white;
+            font-weight: 600;
+        }
+        
+        .user-name {
+            font-weight: 600;
+        }
+        
+        /* Dashboard Content */
+        .dashboard-content {
+            padding: 30px;
+        }
+        
+        .welcome-banner {
+            background: linear-gradient(135deg, var(--primary) 0%, var(--secondary) 100%);
+            color: white;
+            border-radius: 15px;
+            padding: 30px;
+            margin-bottom: 30px;
+            position: relative;
+            overflow: hidden;
+        }
+        
+        .welcome-banner:before {
+            content: '';
+            position: absolute;
+            top: -50px;
+            right: -50px;
+            width: 200px;
+            height: 200px;
+            background: rgba(255,255,255,0.1);
+            border-radius: 50%;
+        }
+        
+        .welcome-banner:after {
+            content: '';
+            position: absolute;
+            bottom: -80px;
+            right: -30px;
+            width: 250px;
+            height: 250px;
+            background: rgba(255,255,255,0.1);
+            border-radius: 50%;
+        }
+        
+        .welcome-banner h2 {
+            font-size: 1.8rem;
+            margin-bottom: 10px;
+            position: relative;
+            z-index: 2;
+        }
+        
+        .welcome-banner p {
+            max-width: 60%;
+            opacity: 0.9;
+            position: relative;
+            z-index: 2;
+        }
+        
+        /* Cycle Overview */
+        .cycle-overview {
+            display: flex;
+            gap: 20px;
+            margin-bottom: 30px;
+        }
+        
+        .cycle-card {
+            background: white;
+            border-radius: 15px;
+            padding: 20px;
+            flex: 1;
+            box-shadow: 0 5px 15px rgba(0,0,0,0.05);
+            transition: all 0.3s ease;
+        }
+        
+        .cycle-card:hover {
+            transform: translateY(-5px);
+            box-shadow: 0 8px 25px rgba(0,0,0,0.1);
+        }
+        
+        .cycle-card h3 {
+            font-size: 1rem;
+            color: #777;
+            margin-bottom: 15px;
+        }
+        
+        .cycle-card .value {
+            font-size: 2rem;
+            font-weight: 700;
+            margin-bottom: 5px;
+        }
+        
+        .cycle-card .description {
+            color: #999;
+            font-size: 0.9rem;
+        }
+        
+        .current-phase {
+            border-top: 3px solid var(--primary);
+        }
+        
+        .next-period {
+            border-top: 3px solid var(--secondary);
+        }
+        
+        .fertile-window {
+            border-top: 3px solid var(--accent);
+        }
+        
+        /* Calendar Section */
+        .calendar-section {
+            background: white;
+            border-radius: 15px;
+            padding: 25px;
+            box-shadow: 0 5px 15px rgba(0,0,0,0.05);
+            margin-bottom: 30px;
+        }
+        
+        .section-header {
+            display: flex;
+            justify-content: space-between;
+            align-items: center;
+            margin-bottom: 20px;
+        }
+        
+        .section-title {
+            font-size: 1.3rem;
+            font-weight: 600;
+        }
+        
+        .view-all {
+            color: var(--primary);
+            text-decoration: none;
+            font-weight: 600;
+            font-size: 0.9rem;
+        }
+        
+        .calendar {
+            width: 100%;
+            border-collapse: collapse;
+        }
+        
+        .calendar th {
+            text-align: center;
+            padding: 10px;
+            color: #777;
+            font-weight: 500;
+        }
+        
+        .calendar td {
+            text-align: center;
+            padding: 15px 10px;
+            border-radius: 10px;
+            cursor: pointer;
+            position: relative;
+        }
+        
+        .calendar td:hover {
+            background: #f9f9f9;
+        }
+        
+        .calendar .today {
+            background: rgba(255,107,157,0.1);
+            color: var(--primary);
+            font-weight: 600;
+        }
+        
+        .calendar .period-day {
+            background: rgba(255,107,157,0.2);
+            color: var(--primary);
+            font-weight: 600;
+        }
+        
+        .calendar .fertile-day {
+            background: rgba(255,209,102,0.2);
+            color: #e6a700;
+            font-weight: 600;
+        }
+        
+        .calendar .ovulation-day:after {
+            content: '•';
+            position: absolute;
+            top: 5px;
+            right: 5px;
+            color: var(--primary);
+            font-size: 1.2rem;
+        }
+        
+        /* Symptoms & Mood */
+        .tracking-section {
+            display: flex;
+            gap: 20px;
+            margin-bottom: 30px;
+        }
+        
+        .tracking-card {
+            background: white;
+            border-radius: 15px;
+            padding: 25px;
+            flex: 1;
+            box-shadow: 0 5px 15px rgba(0,0,0,0.05);
+        }
+        
+        .symptom-item {
+            display: flex;
+            align-items: center;
+            padding: 10px 0;
+            border-bottom: 1px solid #eee;
+        }
+        
+        .symptom-item:last-child {
+            border-bottom: none;
+        }
+        
+        .symptom-icon {
+            width: 30px;
+            height: 30px;
+            border-radius: 50%;
+            background: rgba(255,107,157,0.1);
+            display: flex;
+            align-items: center;
+            justify-content: center;
+            margin-right: 15px;
+            color: var(--primary);
+        }
+        
+        .symptom-info {
+            flex: 1;
+        }
+        
+        .symptom-name {
+            font-weight: 500;
+            margin-bottom: 3px;
+        }
+        
+        .symptom-severity {
+            font-size: 0.8rem;
+            color: #999;
+        }
+        
+        .mood-chart {
+            height: 200px;
+            margin-top: 20px;
+            position: relative;
+        }
+        
+        .mood-scale {
+            position: absolute;
+            left: 0;
+            top: 0;
+            height: 100%;
+            width: 100%;
+            display: flex;
+            flex-direction: column;
+            justify-content: space-between;
+        }
+        
+        .mood-scale-item {
+            display: flex;
+            align-items: center;
+            height: 20%;
+            border-top: 1px dashed #eee;
+            color: #999;
+            font-size: 0.8rem;
+        }
+        
+        .mood-bars {
+            position: absolute;
+            left: 0;
+            top: 0;
+            height: 100%;
+            width: 100%;
+            display: flex;
+            align-items: flex-end;
+            gap: 10px;
+            padding: 0 30px;
+        }
+        
+        .mood-bar {
+            flex: 1;
+            background: linear-gradient(to top, var(--primary), var(--secondary));
+            border-radius: 5px 5px 0 0;
+            position: relative;
+        }
+        
+        .mood-day {
+            position: absolute;
+            bottom: -25px;
+            left: 0;
+            width: 100%;
+            text-align: center;
+            font-size: 0.8rem;
+            color: #777;
+        }
+        
+        /* Health Tips */
+        .health-tips {
+            background: white;
+            border-radius: 15px;
+            padding: 25px;
+            box-shadow: 0 5px 15px rgba(0,0,0,0.05);
+        }
+        
+        .tips-grid {
+            display: grid;
+            grid-template-columns: repeat(auto-fill, minmax(250px, 1fr));
+            gap: 20px;
+            margin-top: 20px;
+        }
+        
+        .tip-card {
+            border-radius: 10px;
+            overflow: hidden;
+            box-shadow: 0 3px 10px rgba(0,0,0,0.1);
+            transition: all 0.3s ease;
+        }
+        
+        .tip-card:hover {
+            transform: translateY(-5px);
+            box-shadow: 0 5px 20px rgba(0,0,0,0.15);
+        }
+        
+        .tip-image {
+            height: 120px;
+            background-size: cover;
+            background-position: center;
+        }
+        
+        .tip-content {
+            padding: 15px;
+        }
+        
+        .tip-category {
+            display: inline-block;
+            background: rgba(255,107,157,0.1);
+            color: var(--primary);
+            padding: 3px 10px;
+            border-radius: 30px;
+            font-size: 0.7rem;
+            font-weight: 600;
+            margin-bottom: 10px;
+        }
+        
+        .tip-title {
+            font-size: 1rem;
+            margin-bottom: 8px;
+        }
+        
+        .tip-excerpt {
+            color: #777;
+            font-size: 0.9rem;
+            margin-bottom: 15px;
+        }
+        
+        .read-more {
+            color: var(--primary);
+            text-decoration: none;
+            font-size: 0.9rem;
+            font-weight: 600;
+        }
+        
+        /* Responsive */
+        @media (max-width: 992px) {
+            .sidebar {
+                width: 80px;
+                overflow: hidden;
+            }
+            
+            .logo span {
+                display: none;
+            }
+            
+            .nav-link span {
+                display: none;
+            }
+            
+            .nav-link {
+                justify-content: center;
+                padding: 15px 0;
+            }
+            
+            .nav-link i {
+                margin-right: 0;
+                font-size: 1.5rem;
+            }
+            
+            .main-content {
+                margin-left: 80px;
+            }
+            
+            .cycle-overview, .tracking-section {
+                flex-direction: column;
+            }
+        }
+        
+        @media (max-width: 768px) {
+            .search-bar {
+                width: 200px;
+            }
+            
+            .user-name {
+                display: none;
+            }
+            
+            .welcome-banner p {
+                max-width: 100%;
+            }
+        }
+        
+        @media (max-width: 576px) {
+            .sidebar {
+                transform: translateX(-100%);
+                position: fixed;
+                top: 0;
+                left: 0;
+                height: 100vh;
+                z-index: 1000;
+                width: 250px;
+                background: white;
+                box-shadow: 2px 0 20px rgba(0,0,0,0.2);
+            }
+            
+            .sidebar.active {
+                transform: translateX(0);
+            }
+            
+            .main-content {
+                margin-left: 0;
+            }
+            
+            .menu-toggle {
+                display: block;
+                font-size: 1.5rem;
+                color: #555;
+                cursor: pointer;
+            }
+            
+            .search-bar {
+                display: none;
+            }
+        }
+        /* Tracker Page Specific Styles */
+        .tracker-header {
+            display: flex;
+            justify-content: space-between;
+            align-items: center;
+            margin-bottom: 30px;
+        }
+        
+        .date-selector {
+            display: flex;
+            align-items: center;
+            gap: 15px;
+        }
+        
+        .current-date {
+            font-weight: 600;
+            font-size: 1.2rem;
+        }
+        
+        .date-nav {
+            display: flex;
+            gap: 10px;
+        }
+        
+        .date-nav button {
+            background: #f5f5f5;
+            border: none;
+            width: 35px;
+            height: 35px;
+            border-radius: 50%;
+            display: flex;
+            align-items: center;
+            justify-content: center;
+            cursor: pointer;
+            transition: all 0.3s ease;
+        }
+        
+        .date-nav button:hover {
+            background: var(--primary);
+            color: white;
+        }
+        
+        .tracker-grid {
+            display: grid;
+            grid-template-columns: 1fr 1fr;
+            gap: 20px;
+            margin-bottom: 30px;
+        }
+        
+        @media (max-width: 768px) {
+            .tracker-grid {
+                grid-template-columns: 1fr;
+            }
+        }
+        
+        .tracker-card {
+            background: white;
+            border-radius: 15px;
+            padding: 25px;
+            box-shadow: 0 5px 15px rgba(0,0,0,0.05);
+        }
+        
+        .tracker-card h3 {
+            font-size: 1.3rem;
+            margin-bottom: 20px;
+            color: var(--dark);
+        }
+        
+        .symptoms-grid {
+            display: grid;
+            grid-template-columns: repeat(auto-fill, minmax(120px, 1fr));
+            gap: 15px;
+        }
+        
+        .symptom-option {
+            display: flex;
+            flex-direction: column;
+            align-items: center;
+            padding: 15px 10px;
+            border-radius: 10px;
+            cursor: pointer;
+            transition: all 0.3s ease;
+            border: 1px solid #eee;
+        }
+        
+        .symptom-option:hover {
+            border-color: var(--primary);
+        }
+        
+        .symptom-option.selected {
+            background: rgba(255,107,157,0.1);
+            border-color: var(--primary);
+        }
+        
+        .symptom-icon {
+            font-size: 1.5rem;
+            margin-bottom: 8px;
+            color: var(--primary);
+        }
+        
+        .symptom-name {
+            font-size: 0.9rem;
+            text-align: center;
+        }
+        
+        .severity-selector {
+            display: flex;
+            flex-direction: column;
+            gap: 15px;
+            margin-top: 20px;
+        }
+        
+        .severity-item {
+            display: flex;
+            align-items: center;
+            gap: 10px;
+        }
+        
+        .severity-label {
+            width: 80px;
+            font-size: 0.9rem;
+        }
+        
+        .severity-buttons {
+            display: flex;
+            gap: 5px;
+        }
+        
+        .severity-btn {
+            width: 25px;
+            height: 25px;
+            border-radius: 50%;
+            border: 1px solid #ddd;
+            background: white;
+            cursor: pointer;
+            transition: all 0.3s ease;
+        }
+        
+        .severity-btn:hover {
+            border-color: var(--primary);
+        }
+        
+        .severity-btn.selected {
+            background: var(--primary);
+            border-color: var(--primary);
+            color: white;
+        }
+        
+        .mood-selector {
+            display: flex;
+            justify-content: space-between;
+            margin-top: 20px;
+        }
+        
+        .mood-option {
+            display: flex;
+            flex-direction: column;
+            align-items: center;
+            cursor: pointer;
+        }
+        
+        .mood-emoji {
+            font-size: 2rem;
+            margin-bottom: 5px;
+            transition: all 0.3s ease;
+        }
+        
+        .mood-option:hover .mood-emoji {
+            transform: scale(1.2);
+        }
+        
+        .mood-option.selected .mood-emoji {
+            transform: scale(1.3);
+            color: var(--primary);
+        }
+        
+        .mood-label {
+            font-size: 0.8rem;
+            color: #777;
+        }
+        
+        .notes-section {
+            margin-top: 30px;
+        }
+        
+        .notes-area {
+            width: 100%;
+            min-height: 150px;
+            padding: 15px;
+            border: 1px solid #ddd;
+            border-radius: 10px;
+            font-family: 'Poppins', sans-serif;
+            resize: vertical;
+        }
+        
+        .save-button {
+            background: var(--primary);
+            color: white;
+            border: none;
+            padding: 12px 25px;
+            border-radius: 30px;
+            font-weight: 600;
+            cursor: pointer;
+            margin-top: 20px;
+            display: block;
+            width: 100%;
+            transition: all 0.3s ease;
+        }
+        
+        .save-button:hover {
+            background: var(--secondary);
+            transform: translateY(-2px);
+            box-shadow: 0 5px 15px rgba(161, 140, 255, 0.3);
+        }
+        
+        .tracker-history {
+            margin-top: 30px;
+        }
+        
+        .history-item {
+            background: white;
+            border-radius: 10px;
+            padding: 15px;
+            margin-bottom: 15px;
+            box-shadow: 0 3px 10px rgba(0,0,0,0.05);
+        }
+        
+        .history-date {
+            font-weight: 600;
+            margin-bottom: 10px;
+            color: var(--dark);
+        }
+        
+        .history-symptoms {
+            display: flex;
+            flex-wrap: wrap;
+            gap: 10px;
+            margin-bottom: 10px;
+        }
+        
+        .history-symptom {
+            background: rgba(255,107,157,0.1);
+            color: var(--primary);
+            padding: 3px 10px;
+            border-radius: 30px;
+            font-size: 0.8rem;
+        }
+        
+        .history-mood {
+            display: flex;
+            align-items: center;
+            gap: 5px;
+            color: #777;
+            font-size: 0.9rem;
+        }
+    </style>
+</head>
+<body>
+    <!-- Sidebar -->
+    <div class="sidebar" id="sidebar">
+        <div class="logo">Petal<span>Flow</span></div>
+        <ul class="nav-menu">
+            <li class="nav-item">
+                <a href="home.html" class="nav-link">
+                    <i class="fas fa-home"></i>
+                    <span>Dashboard</span>
+                </a>
+            </li>
+            <li class="nav-item">
+                <a href="calendar.html" class="nav-link">
+                    <i class="fas fa-calendar-alt"></i>
+                    <span>Calendar</span>
+                </a>
+            </li>
+            <li class="nav-item">
+                <a href="tracker.html" class="nav-link active">
+                    <i class="fas fa-chart-line"></i>
+                    <span>Tracker</span>
+                </a>
+            </li>
+            <li class="nav-item">
+                <a href="insights.html" class="nav-link">
+                    <i class="fas fa-lightbulb"></i>
+                    <span>Insights</span>
+                </a>
+            </li>
+            <li class="nav-item">
+                <a href="health.html" class="nav-link">
+                    <i class="fas fa-heartbeat"></i>
+                    <span>Health Tips</span>
+                </a>
+            </li>
+            <li class="nav-item">
+                <a href="community.html" class="nav-link">
+                    <i class="fas fa-users"></i>
+                    <span>Community</span>
+                </a>
+            </li>
+                            <li class="nav-item">
+                    <a href="familysharing.html" class="nav-link">
+                        <i class="fas fa-users-between-lines"></i>
+                        <span>Family Sharing</span>
+                    </a>
+                </li>
+            <li class="nav-item">
+                <a href="settings.html" class="nav-link">
+                    <i class="fas fa-cog"></i>
+                    <span>Settings</span>
+                </a>
+            </li>
+             <li class="nav-item">
+                <a href="chat.html" class="nav-link">
+                    <i class="fas fa-comments"></i>
+                    <span>AI Assistant</span>
+                </a>
+            </li>
+            <li class="nav-item">
+                <a href="quiz.html" class="nav-link">
+                    <i class="fas fa-question-circle"></i>
+                    <span>Quiz</span>
+                </a>
+            </li>
+
+        </ul>
+    </div>
+    
+    <!-- Main Content -->
+    <div class="main-content">
+        <!-- Top Navigation -->
+        <div class="top-nav">
+            <div class="menu-toggle" id="menuToggle">
+                <i class="fas fa-bars"></i>
+            </div>
+            <div class="search-bar">
+                <i class="fas fa-search"></i>
+                <input type="text" placeholder="Search...">
+            </div>
+            <div class="user-menu">
+                <a href="#" class="notification-icon">
+                    <i class="fas fa-bell"></i>
+                    <span class="notification-badge">3</span>
+                </a>
+                <div class="user-profile">
+                    <div class="user-avatar">JS</div>
+                    <div class="user-name">Jane Smith</div>
+                </div>
+            </div>
+        </div>
+        
+        <!-- Tracker Content -->
+        <div class="dashboard-content">
+            <div class="tracker-header animate__animated animate__fadeIn">
+                <h2>Daily Tracker</h2>
+                <div class="date-selector">
+                    <div class="current-date">May 14, 2023</div>
+                    <div class="date-nav">
+                        <button id="prevDay"><i class="fas fa-chevron-left"></i></button>
+                        <button id="today">Today</button>
+                        <button id="nextDay"><i class="fas fa-chevron-right"></i></button>
+                    </div>
+                </div>
+            </div>
+            
+            <div class="tracker-grid">
+                <div class="tracker-card symptoms-card animate__animated animate__fadeInLeft">
+                    <h3>Symptoms</h3>
+                    <div class="symptoms-grid">
+                        <div class="symptom-option">
+                            <div class="symptom-icon"><i class="fas fa-heartbeat"></i></div>
+                            <div class="symptom-name">Bloating</div>
+                        </div>
+                        <div class="symptom-option selected">
+                            <div class="symptom-icon"><i class="fas fa-brain"></i></div>
+                            <div class="symptom-name">Headache</div>
+                        </div>
+                        <div class="symptom-option">
+                            <div class="symptom-icon"><i class="fas fa-tired"></i></div>
+                            <div class="symptom-name">Fatigue</div>
+                        </div>
+                        <div class="symptom-option">
+                            <div class="symptom-icon"><i class="fas fa-smile"></i></div>
+                            <div class="symptom-name">Mood Swings</div>
+                        </div>
+                        <div class="symptom-option">
+                            <div class="symptom-icon"><i class="fas fa-utensils"></i></div>
+                            <div class="symptom-name">Food Cravings</div>
+                        </div>
+                        <div class="symptom-option">
+                            <div class="symptom-icon"><i class="fas fa-plus"></i></div>
+                            <div class="symptom-name">Add Custom</div>
+                        </div>
+                    </div>
+                    
+                    <div class="severity-selector">
+                        <h4>Symptom Severity</h4>
+                        <div class="severity-item">
+                            <div class="severity-label">Headache</div>
+                            <div class="severity-buttons">
+                                <button class="severity-btn">1</button>
+                                <button class="severity-btn selected">2</button>
+                                <button class="severity-btn">3</button>
+                                <button class="severity-btn">4</button>
+                                <button class="severity-btn">5</button>
+                            </div>
+                        </div>
+                    </div>
+                </div>
+                
+                <div class="tracker-card mood-card animate__animated animate__fadeInRight">
+                    <h3>Mood</h3>
+                    <div class="mood-selector">
+                        <div class="mood-option">
+                            <div class="mood-emoji">😭</div>
+                            <div class="mood-label">Awful</div>
+                        </div>
+                        <div class="mood-option">
+                            <div class="mood-emoji">😞</div>
+                            <div class="mood-label">Sad</div>
+                        </div>
+                        <div class="mood-option">
+                            <div class="mood-emoji">😐</div>
+                            <div class="mood-label">Neutral</div>
+                        </div>
+                        <div class="mood-option selected">
+                            <div class="mood-emoji">🙂</div>
+                            <div class="mood-label">Good</div>
+                        </div>
+                        <div class="mood-option">
+                            <div class="mood-emoji">😁</div>
+                            <div class="mood-label">Great</div>
+                        </div>
+                    </div>
+                    
+                    <div class="notes-section">
+                        <h4>Notes</h4>
+                        <textarea class="notes-area" placeholder="How are you feeling today? Any additional notes..."></textarea>
+                    </div>
+                    
+                    <button class="save-button">Save Today's Entry</button>
+                </div>
+            </div>
+            
+            <div class="tracker-history animate__animated animate__fadeInUp">
+                <h3>Recent Entries</h3>
+                <div class="history-item">
+                    <div class="history-date">May 13, 2023</div>
+                    <div class="history-symptoms">
+                        <div class="history-symptom">Bloating</div>
+                        <div class="history-symptom">Food Cravings</div>
+                    </div>
+                    <div class="history-mood">
+                        <span>😐</span>
+                        <span>Neutral</span>
+                    </div>
+                </div>
+                <div class="history-item">
+                    <div class="history-date">May 12, 2023</div>
+                    <div class="history-symptoms">
+                        <div class="history-symptom">Headache</div>
+                        <div class="history-symptom">Fatigue</div>
+                    </div>
+                    <div class="history-mood">
+                        <span>😞</span>
+                        <span>Sad</span>
+                    </div>
+                </div>
+                <div class="history-item">
+                    <div class="history-date">May 11, 2023</div>
+                    <div class="history-symptoms">
+                        <div class="history-symptom">Mood Swings</div>
+                    </div>
+                    <div class="history-mood">
+                        <span>🙂</span>
+                        <span>Good</span>
+                    </div>
+                </div>
+            </div>
+        </div>
+    </div>
+    
+
+    
+    <script>
+        // Sidebar toggle
+        document.getElementById('menuToggle').addEventListener('click', function() {
+            document.getElementById('sidebar').classList.toggle('active');
+        });
+        
+        // Symptom selection
+        const symptomOptions = document.querySelectorAll('.symptom-option');
+        symptomOptions.forEach(option => {
+            option.addEventListener('click', function() {
+                this.classList.toggle('selected');
+            });
+        });
+        
+        // Severity selection
+        const severityBtns = document.querySelectorAll('.severity-btn');
+        severityBtns.forEach(btn => {
+            btn.addEventListener('click', function() {
+                severityBtns.forEach(b => b.classList.remove('selected'));
+                this.classList.add('selected');
+            });
+        });
+        
+        // Mood selection
+        const moodOptions = document.querySelectorAll('.mood-option');
+        moodOptions.forEach(option => {
+            option.addEventListener('click', function() {
+                moodOptions.forEach(opt => opt.classList.remove('selected'));
+                this.classList.add('selected');
+            });
+        });
+        
+        // Date navigation
+        document.getElementById('prevDay').addEventListener('click', function() {
+            alert('Previous day clicked');
+            // Update to show previous day's data
+        });
+        
+        document.getElementById('nextDay').addEventListener('click', function() {
+            alert('Next day clicked');
+            // Update to show next day's data
+        });
+        
+        document.getElementById('today').addEventListener('click', function() {
+            alert('Today clicked');
+            // Update to show today's data
+        });
+        
+        // Save entry
+        document.querySelector('.save-button').addEventListener('click', function() {
+            alert('Entry saved successfully!');
+            // Here you would handle saving the data
+        });
+    </script>
+</body>
+</html>

@@ -1,0 +1,825 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>LunaFlow - AI Period Tracker</title>
+    <link href="https://fonts.googleapis.com/css2?family=Poppins:wght@300;400;600;700&family=Dancing+Script:wght@700&display=swap" rel="stylesheet">
+    <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/animate.css/4.1.1/animate.min.css">
+    <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.5.0/css/all.min.css">
+
+    <style>
+        :root {
+            --primary: #fd0e5e;
+            --secondary: #7f64f5;
+            --dark: #2a2344;
+            --light: #fef6ff;
+            --accent: #ffd166;
+        }
+        
+        * {
+            margin: 0;
+            padding: 0;
+            box-sizing: border-box;
+        }
+        
+        body {
+            font-family: 'Poppins', sans-serif;
+            color: var(--dark);
+            background: #fafafa;
+            display: flex;
+            min-height: 100vh;
+            overflow-x: hidden;
+        }
+
+        .main-content {
+            margin-left: 250px;
+            flex: 1;
+            padding: 0;
+        }
+        
+        .container {
+            max-width: 1000px;
+            margin: 0 auto;
+            padding: 0 20px;
+        }
+        
+        /* Header */
+       
+         .sidebar, .top-nav, .cycle-card, .calendar-section, .tracking-card, .health-tips {
+            background: var(--bg-card);
+            box-shadow: 0 5px 15px var(--shadow-color);
+        }
+    
+        
+        /* Sidebar */
+        .sidebar {
+            width: 250px;
+            background: white;
+            box-shadow: 2px 0 20px rgba(0,0,0,0.05);
+            padding: 30px 0;
+            position: fixed;
+            height: 100vh;
+            transition: all 0.3s ease;
+            z-index: 100;
+            overflow-y: auto; /* Make sidebar scrollable */
+
+        }
+                .logo {
+            font-family: 'Dancing Script', cursive;
+            font-size: 2rem;
+            font-weight: 700;
+            color: var(--primary);
+            text-align: center;
+            margin-bottom: 40px;
+            padding: 0 20px;
+            text-shadow: 2px 2px 4px rgba(0, 0, 0, 0.253);
+        }
+        
+        .nav-menu {
+            list-style: none;
+        }
+        
+        .nav-item {
+            margin-bottom: 5px;
+        }
+        
+        .nav-link {
+            display: flex;
+            align-items: center;
+            padding: 12px 25px;
+            text-decoration: none;
+            color: #555;
+            transition: all 0.3s ease;
+        }
+        
+        .nav-link:hover, .nav-link.active {
+            color: var(--primary);
+            background: rgba(255,107,157,0.1);
+            border-right: 3px solid var(--primary);
+        }
+        
+        .nav-link i {
+            margin-right: 15px;
+            font-size: 1.2rem;
+            width: 20px;
+            text-align: center;
+        }
+        
+        nav {
+            display: flex;
+            justify-content: space-between;
+            align-items: center;
+        }
+        
+        .logo {
+            font-family: 'Dancing Script', cursive;
+            font-size: 2.5rem;
+            font-weight: 700;
+            color: var(--primary);
+            text-shadow: 2px 2px 4px rgba(0,0,0,0.1);
+        }
+        
+        .nav-links {
+            display: flex;
+            gap: 30px;
+        }
+        
+        .nav-links a {
+            text-decoration: none;
+            color: var(--dark);
+            font-weight: 600;
+            position: relative;
+            transition: all 0.3s ease;
+        }
+        
+        .nav-links a:after {
+            content: '';
+            position: absolute;
+            width: 0;
+            height: 2px;
+            background: var(--primary);
+            bottom: -5px;
+            left: 0;
+            transition: width 0.3s ease;
+        }
+        
+        .nav-links a:hover:after {
+            width: 100%;
+        }
+        
+        .nav-links a:hover {
+            color: var(--primary);
+        }
+       
+        
+        /* Hero Section */
+        .hero {
+            height: 80vh;
+            display: flex;
+            align-items: center;
+            position: relative;
+            overflow: hidden;
+        }
+        
+        .hero-content {
+            width: 50%;
+            z-index: 10;
+        }
+        
+        .hero h1 {
+            font-size: 3.5rem;
+            margin-bottom: 20px;
+            line-height: 1.2;
+        }
+        
+        .hero h1 span {
+    background: linear-gradient(45deg, var(--primary), var(--secondary));
+    -webkit-background-clip: text;
+    background-clip: text; /* Optional fallback */
+    -webkit-text-fill-color: transparent;
+-webkit-text-fill-color: transparent;
+    display: inline-block; /* Important for gradient clip to work */
+    font-family: 'Dancing Script', cursive;
+}
+
+        
+        .hero p {
+            font-size: 1.1rem;
+            margin-bottom: 30px;
+            color: #555;
+            max-width: 80%;
+        }
+        
+        .hero-buttons {
+            display: flex;
+            gap: 20px;
+        }
+        
+        .secondary-button {
+            background: transparent;
+            color: var(--dark);
+            border: 2px solid var(--primary);
+            padding: 12px 25px;
+            border-radius: 30px;
+            font-weight: 600;
+            cursor: pointer;
+            transition: all 0.3s ease;
+        }
+        
+        .secondary-button:hover {
+            background: var(--primary);
+            color: white;
+        }
+        
+        .hero-image {
+            position: absolute;
+            right: 0;
+            top: 50%;
+            transform: translateY(-50%);
+            width: 60%;
+            max-width: 700px;
+            z-index: 5;
+        }
+        
+        .hero-image img {
+            width: 100%;
+            animation: float 6s ease-in-out infinite;
+        }
+        
+        @keyframes float {
+            0% { transform: translateY(0px); }
+            50% { transform: translateY(-20px); }
+            100% { transform: translateY(0px); }
+        }
+        
+        /* Moon Phases Animation */
+        .moon-phases {
+            position: absolute;
+            top: 0;
+            left: 0;
+            width: 100%;
+            height: 100%;
+            overflow: hidden;
+            z-index: 1;
+        }
+        
+        .moon {
+            position: absolute;
+            border-radius: 50%;
+            background: rgba(255, 255, 255, 0.8);
+            box-shadow: 0 0 20px rgba(255, 255, 255, 0.6);
+            opacity: 0.3;
+            animation: moonFloat linear infinite;
+        }
+        
+        @keyframes moonFloat {
+            from { transform: translateY(0) rotate(0deg); }
+            to { transform: translateY(-1000px) rotate(360deg); }
+        }
+        
+        
+        
+        /* Quizzes Section */
+        .quizzes-section {
+            padding: 80px 0;
+            background: rgba(255, 255, 255, 0.7);
+            position: relative;
+            z-index: 2;
+        }
+        
+        .section-subtitle {
+            text-align: center;
+            margin-bottom: 40px;
+            color: #666;
+            font-size: 1.2rem;
+        }
+        
+        .quiz-cards {
+            display: flex;
+            justify-content: center;
+            gap: 30px;
+            flex-wrap: wrap;
+        }
+        
+        .quiz-card {
+            background: white;
+            border-radius: 20px;
+            padding: 30px;
+            width: 320px;
+            box-shadow: 0 10px 30px rgba(0,0,0,0.05);
+            transition: all 0.3s ease;
+            position: relative;
+            overflow: hidden;
+        }
+        
+        .quiz-card:hover {
+            transform: translateY(-10px);
+            box-shadow: 0 15px 40px rgba(161, 140, 255, 0.2);
+        }
+        
+        .quiz-card:before {
+            content: '';
+            position: absolute;
+            top: 0;
+            left: 0;
+            width: 100%;
+            height: 5px;
+            background: linear-gradient(45deg, var(--primary), var(--secondary));
+        }
+        
+        .quiz-icon {
+            font-size: 3rem;
+            margin-bottom: 20px;
+            color: var(--primary);
+        }
+        
+        .quiz-card h3 {
+            margin-bottom: 15px;
+            font-size: 1.5rem;
+            color: var(--dark);
+        }
+        
+        .quiz-card p {
+            color: #666;
+            line-height: 1.6;
+            margin-bottom: 20px;
+        }
+        
+        .quiz-progress {
+            margin: 20px 0;
+        }
+        
+        .progress-bar {
+            height: 8px;
+            background: linear-gradient(45deg, var(--primary), var(--secondary));
+            border-radius: 4px;
+            margin-bottom: 5px;
+        }
+        
+        .quiz-progress span {
+            font-size: 0.9rem;
+            color: #888;
+        }
+        
+        .quiz-button {
+            background: var(--dark);
+            color: white;
+            border: none;
+            padding: 12px 25px;
+            border-radius: 30px;
+            font-weight: 600;
+            cursor: pointer;
+            width: 100%;
+            transition: all 0.3s ease;
+        }
+        
+        .quiz-button:hover {
+            background: linear-gradient(45deg, var(--primary), var(--secondary));
+            transform: translateY(-3px);
+            box-shadow: 0 4px 15px rgba(161, 140, 255, 0.4);
+        }
+        
+        /* Badges Section */
+        .badges-section {
+            padding: 80px 0;
+            background: linear-gradient(135deg, rgba(255,107,157,0.05) 0%, rgba(161,140,255,0.05) 100%);
+        }
+        
+        .badges-container {
+            max-width: 900px;
+            margin: 0 auto;
+        }
+        
+        .badge-category {
+            margin-bottom: 40px;
+        }
+        
+        .badge-category h3 {
+            font-size: 1.5rem;
+            margin-bottom: 20px;
+            color: var(--primary);
+            text-align: center;
+        }
+        
+        .badges-grid {
+            display: grid;
+            grid-template-columns: repeat(auto-fill, minmax(150px, 1fr));
+            gap: 20px;
+            justify-items: center;
+        }
+        
+        .badge {
+            background: white;
+            border-radius: 15px;
+            padding: 20px 15px;
+            text-align: center;
+            width: 100%;
+            box-shadow: 0 5px 15px rgba(0,0,0,0.05);
+            transition: all 0.3s ease;
+            opacity: 1;
+        }
+        
+        .badge.earned {
+            border: 2px solid var(--primary);
+        }
+        
+        .badge.locked {
+            opacity: 0.6;
+            position: relative;
+        }
+        
+        .badge.locked:after {
+            content: '🔒';
+            position: absolute;
+            top: 5px;
+            right: 5px;
+            font-size: 0.8rem;
+        }
+        
+        .badge-icon {
+            font-size: 2.5rem;
+            margin-bottom: 10px;
+        }
+        
+        .badge p {
+            font-weight: 600;
+            margin-bottom: 5px;
+            color: var(--dark);
+        }
+        
+        .badge span {
+            font-size: 0.8rem;
+            color: #888;
+        }
+        
+        /* Testimonials */
+        .testimonials {
+            padding: 80px 0;
+            background: linear-gradient(135deg, rgba(255,107,157,0.05) 0%, rgba(161,140,255,0.05) 100%);
+        }
+        
+        .testimonial-slider {
+            max-width: 800px;
+            margin: 0 auto;
+            position: relative;
+        }
+        
+        .testimonial {
+            background: white;
+            padding: 40px;
+            border-radius: 20px;
+            box-shadow: 0 10px 30px rgba(0,0,0,0.05);
+            text-align: center;
+            display: none;
+        }
+        
+        .testimonial.active {
+            display: block;
+            animation: fadeIn 0.5s ease;
+        }
+        
+        @keyframes fadeIn {
+            from { opacity: 0; }
+            to { opacity: 1; }
+        }
+        
+       
+        
+        /* Responsive */
+        @media (max-width: 992px) {
+            .hero-content {
+                width: 100%;
+                text-align: center;
+            }
+            
+            .hero p {
+                max-width: 100%;
+            }
+            
+            .hero-buttons {
+                justify-content: center;
+            }
+            
+            .hero-image {
+                display: none;
+            }
+        }
+        
+        @media (max-width: 768px) {
+            .nav-links {
+                display: none;
+            }
+            
+            .hero h1 {
+                font-size: 2.5rem;
+            }
+            
+            .feature-cards {
+                flex-direction: column;
+                align-items: center;
+            }
+            
+            .quiz-cards {
+                flex-direction: column;
+                align-items: center;
+            }
+            
+            .quiz-card {
+                width: 100%;
+                max-width: 400px;
+            }
+            
+            .badges-grid {
+                grid-template-columns: repeat(2, 1fr);
+            }
+            
+            .cta-buttons {
+                flex-direction: column;
+                align-items: center;
+            }
+        }
+    </style>
+    <link rel="stylesheet" href="flower-animation.css">
+</head>
+<body>
+   <div class="sidebar" id="sidebar">
+        <div class="logo">Petal<span>Flow</span></div>
+        <ul class="nav-menu">
+            <li class="nav-item">
+                <a href="home.html" class="nav-link active">
+                    <i class="fas fa-home"></i>
+                    <span>Dashboard</span>
+                </a>
+            </li>
+            <li class="nav-item">
+                <a href="calendar.html" class="nav-link">
+                    <i class="fas fa-calendar-alt"></i>
+                    <span>Calendar</span>
+                </a>
+            </li>
+            <li class="nav-item">
+                <a href="tracker.html" class="nav-link">
+                    <i class="fas fa-chart-line"></i>
+                    <span>Tracker</span>
+                </a>
+            </li>
+            <li class="nav-item">
+                <a href="insights.html" class="nav-link">
+                    <i class="fas fa-lightbulb"></i>
+                    <span>Insights</span>
+                </a>
+            </li>
+            <li class="nav-item">
+                <a href="health.html" class="nav-link">
+                    <i class="fas fa-heartbeat"></i>
+                    <span>Health Tips</span>
+                </a>
+            </li>
+            <li class="nav-item">
+                <a href="community.html" class="nav-link">
+                    <i class="fas fa-users"></i>
+                    <span>Community</span>
+                </a>
+            </li>
+                            <li class="nav-item">
+                    <a href="familysharing.html" class="nav-link">
+                        <i class="fas fa-users-between-lines"></i>
+                        <span>Family Sharing</span>
+                    </a>
+                </li>
+            <li class="nav-item">
+                <a href="settings.html" class="nav-link">
+                    <i class="fas fa-cog"></i>
+                    <span>Settings</span>
+                </a>
+            </li>
+            <li class="nav-item">
+                <a href="chat.html" class="nav-link">
+                    <i class="fas fa-comments"></i>
+                    <span>AI Assistant</span>
+                </a>
+            </li>
+            <li class="nav-item">
+                <a href="quiz.html" class="nav-link">
+                    <i class="fas fa-question-circle"></i>
+                    <span>Quiz</span>
+                </a>
+            </li>
+        </ul>
+    </div>
+   <div class="main-content">
+       <!-- Quizzes Section -->
+       <section class="quizzes-section" id="quizzes">
+           <div class="container">
+               <h2 class="animate_animated animate_fadeIn">Cycle Wisdom Quizzes</h2>
+               <p class="section-subtitle animate_animated animate_fadeIn animate-delay-1">Test your knowledge and earn rewards!</p>
+               
+               <div class="quiz-cards">
+                   <div class="quiz-card animate_animated animate_fadeInUp animate-delay-1">
+                       <div class="quiz-icon">❓</div>
+                       <h3>Cycle Basics</h3>
+                       <p>How well do you understand your menstrual cycle? Take this quiz to find out!</p>
+                       <div class="quiz-progress">
+                           <div class="progress-bar" style="width: 65%"></div>
+                           <span>65% completed</span>
+                       </div>
+                       <button class="quiz-button">Start Quiz</button>
+                   </div>
+                   
+                   <div class="quiz-card animate_animated animate_fadeInUp animate-delay-2">
+                       <div class="quiz-icon">💪</div>
+                       <h3>Hormone Health</h3>
+                       <p>Discover how hormones affect your mood, energy, and overall wellbeing.</p>
+                       <div class="quiz-progress">
+                           <div class="progress-bar" style="width: 30%"></div>
+                           <span>30% completed</span>
+                       </div>
+                       <button class="quiz-button">Continue</button>
+                   </div>
+                   
+                   <div class="quiz-card animate_animated animate_fadeInUp animate-delay-3">
+                       <div class="quiz-icon">🧠</div>
+                       <h3>Mood & Mind</h3>
+                       <p>Understand the connection between your cycle and emotional patterns.</p>
+                       <div class="quiz-progress">
+                           <div class="progress-bar" style="width: 0%"></div>
+                           <span>New quiz!</span>
+                       </div>
+                       <button class="quiz-button">Start Quiz</button>
+                   </div>
+               </div>
+           </div>
+       </section>
+       
+       <!-- Badges Section -->
+       <section class="badges-section" id="badges">
+           <div class="container">
+               <h2 class="animate_animated animate_fadeIn">Your Moon Badges</h2>
+               <p class="section-subtitle animate_animated animate_fadeIn animate-delay-1">Collect them all by tracking and learning!</p>
+               
+               <div class="badges-container">
+                   <div class="badge-category">
+                       <h3>Tracking Streaks</h3>
+                       <div class="badges-grid">
+                           <div class="badge earned">
+                               <div class="badge-icon">🌱</div>
+                               <p>New Moon</p>
+                               <span>3-day streak</span>
+                           </div>
+                           <div class="badge earned">
+                               <div class="badge-icon">🌓</div>
+                               <p>First Quarter</p>
+                               <span>7-day streak</span>
+                           </div>
+                           <div class="badge locked">
+                               <div class="badge-icon">🌕</div>
+                               <p>Full Moon</p>
+                               <span>30-day streak</span>
+                           </div>
+                           <div class="badge locked">
+                               <div class="badge-icon">🌑</div>
+                               <p>Lunar Eclipse</p>
+                               <span>100-day streak</span>
+                           </div>
+                       </div>
+                   </div>
+                   
+                   <div class="badge-category">
+                       <h3>Knowledge Seeker</h3>
+                       <div class="badges-grid">
+                           <div class="badge earned">
+                               <div class="badge-icon">📚</div>
+                               <p>Cycle Scholar</p>
+                               <span>Completed 1 quiz</span>
+                           </div>
+                           <div class="badge locked">
+                               <div class="badge-icon">🎓</div>
+                               <p>Hormone Expert</p>
+                               <span>Score 90%+ on 3 quizzes</span>
+                           </div>
+                           <div class="badge locked">
+                               <div class="badge-icon">🔬</div>
+                               <p>Cycle Scientist</p>
+                               <span>Complete all quizzes</span>
+                           </div>
+                       </div>
+                   </div>
+               </div>
+           </div>
+       </section>
+   </div>
+   
+    <!-- Font Awesome for icons -->
+    <script src="https://kit.fontawesome.com/a076d05399.js" crossorigin="anonymous"></script>
+    <script src="flower-animation.js"></script>
+    
+ <script src="https://kit.fontawesome.com/a076d05399.js" crossorigin="anonymous"></script>
+<script src="flower-animation.js"></script>
+
+<script>
+// Create floating moons
+function createMoons() {
+    const moonPhases = document.getElementById('moonPhases');
+    const phases = ['🌑', '🌒', '🌓', '🌔', '🌕', '🌖', '🌗', '🌘'];
+
+    for (let i = 0; i < 15; i++) {
+        const moon = document.createElement('div');
+        moon.className = 'moon';
+        moon.textContent = phases[Math.floor(Math.random() * phases.length)];
+
+        // Random properties
+        const size = Math.random() * 30 + 20;
+        const left = Math.random() * 100;
+        const duration = Math.random() * 30 + 30;
+        const delay = Math.random() * 10;
+
+        moon.style.width = `${size}px`;
+        moon.style.height = `${size}px`;
+        moon.style.left = `${left}%`;
+        moon.style.top = `${Math.random() * 100 + 100}%`;
+        moon.style.animationDuration = `${duration}s`;
+        moon.style.animationDelay = `${delay}s`;
+        moon.style.fontSize = `${size * 0.7}px`;
+
+        moonPhases.appendChild(moon);
+    }
+}
+
+// Testimonial slider
+function setupTestimonialSlider() {
+    const testimonials = document.querySelectorAll('.testimonial');
+    const dots = document.querySelectorAll('.testimonial-dot');
+    let currentIndex = 0;
+
+    function showTestimonial(index) {
+        testimonials.forEach(testimonial => testimonial.classList.remove('active'));
+        dots.forEach(dot => dot.classList.remove('active'));
+
+        testimonials[index].classList.add('active');
+        dots[index].classList.add('active');
+        currentIndex = index;
+    }
+
+    dots.forEach(dot => {
+        dot.addEventListener('click', () => {
+            showTestimonial(parseInt(dot.dataset.index));
+        });
+    });
+
+    // Auto-rotate testimonials
+    setInterval(() => {
+        let nextIndex = (currentIndex + 1) % testimonials.length;
+        showTestimonial(nextIndex);
+    }, 5000);
+}
+
+// Quiz interaction
+function setupQuizInteractions() {
+    const quizButtons = document.querySelectorAll('.quiz-button');
+
+    quizButtons.forEach(button => {
+        button.addEventListener('click', function() {
+            const quizCard = this.closest('.quiz-card');
+            const quizTitle = quizCard.querySelector('h3').textContent;
+
+            alert(`Starting quiz: ${quizTitle}\n\nThis would open an interactive quiz in the actual app!`);
+
+            // Simulate progress update
+            if (this.textContent.includes('Start')) {
+                this.textContent = 'Continue';
+                const progressBar = quizCard.querySelector('.progress-bar');
+                progressBar.style.width = '25%';
+                quizCard.querySelector('.quiz-progress span').textContent = '25% completed';
+            }
+        });
+    });
+}
+
+// Badge hover effects
+function setupBadgeHoverEffects() {
+    const badges = document.querySelectorAll('.badge');
+
+    badges.forEach(badge => {
+        badge.addEventListener('mouseenter', function() {
+            if (this.classList.contains('locked')) {
+                const badgeName = this.querySelector('p').textContent;
+                const requirements = this.querySelector('span').textContent;
+                this.setAttribute('title', `Earn this by: ${requirements}`);
+            }
+        });
+    });
+}
+
+// Button click handlers
+function setupButtonHandlers() {
+    const signupButtons = [document.getElementById('signupBtn'), document.getElementById('ctaSignup')];
+    const loginButton = document.getElementById('loginBtn');
+
+    signupButtons.forEach(button => {
+        if (button) {
+            button.addEventListener('click', () => {
+                alert('Sign up button clicked! In a real app, this would redirect to signup page.');
+            });
+        }
+    });
+
+    if (loginButton) {
+        loginButton.addEventListener('click', () => {
+            alert('Login button clicked! In a real app, this would redirect to login page.');
+        });
+    }
+}
+
+// Initialize everything when DOM loads
+document.addEventListener('DOMContentLoaded', () => {
+    createMoons();
+    setupTestimonialSlider();
+    setupQuizInteractions();
+    setupBadgeHoverEffects();
+    setupButtonHandlers();
+});
+</script>
+</body>
+</html>
+``` 

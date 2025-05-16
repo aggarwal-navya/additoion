@@ -1,0 +1,316 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Guide - PetalFlow</title>
+    <link href="https://fonts.googleapis.com/css2?family=Poppins:wght@300;400;600;700&family=Dancing+Script:wght@700&display=swap" rel="stylesheet">
+    <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/animate.css/4.1.1/animate.min.css">
+    <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.4.0/css/all.min.css">
+    <style>
+        :root {
+            --primary: rgb(247, 13, 91);
+            --secondary: #7b60f3;
+            --dark: #2a2344;
+            --light: #fef6ff;
+            --accent: #ffd166;
+        }
+        
+        * {
+            margin: 0;
+            padding: 0;
+            box-sizing: border-box;
+        }
+        
+        body {
+            font-family: 'Poppins', sans-serif;
+            background: linear-gradient(135deg, #fff5f7 0%, #f6f0ff 100%);
+            color: var(--dark);
+            min-height: 100vh;
+        }
+        
+        .container {
+            max-width: 1200px;
+            margin: 0 auto;
+            padding: 0 20px;
+        }
+        
+        /* Header */
+        header {
+            padding: 20px 0;
+            background: white;
+            box-shadow: 0 2px 10px rgba(0,0,0,0.05);
+        }
+        
+        nav {
+            display: flex;
+            justify-content: space-between;
+            align-items: center;
+        }
+        
+        .logo {
+            font-family: 'Dancing Script', cursive;
+            font-size: 2.5rem;
+            font-weight: 700;
+            color: var(--primary);
+        }
+        
+        .back-home {
+            display: flex;
+            align-items: center;
+            gap: 10px;
+            text-decoration: none;
+            color: var(--dark);
+            font-weight: 600;
+            transition: all 0.3s ease;
+        }
+        
+        .back-home:hover {
+            color: var(--primary);
+        }
+        
+        /* Guide Content */
+        .guide-section {
+            padding: 60px 0;
+        }
+        
+        .guide-header {
+            text-align: center;
+            margin-bottom: 50px;
+        }
+        
+        .guide-header h1 {
+            font-size: 2.5rem;
+            margin-bottom: 20px;
+            color: var(--dark);
+        }
+        
+        .guide-header p {
+            color: #666;
+            max-width: 700px;
+            margin: 0 auto;
+        }
+        
+        .guide-grid {
+            display: grid;
+            grid-template-columns: repeat(auto-fit, minmax(300px, 1fr));
+            gap: 30px;
+            margin-bottom: 50px;
+        }
+        
+        .guide-card {
+            background: white;
+            border-radius: 15px;
+            padding: 30px;
+            box-shadow: 0 5px 15px rgba(0,0,0,0.05);
+            transition: all 0.3s ease;
+        }
+        
+        .guide-card:hover {
+            transform: translateY(-5px);
+            box-shadow: 0 8px 25px rgba(0,0,0,0.1);
+        }
+        
+        .guide-card i {
+            font-size: 2.5rem;
+            color: var(--primary);
+            margin-bottom: 20px;
+        }
+        
+        .guide-card h3 {
+            font-size: 1.3rem;
+            margin-bottom: 15px;
+            color: var(--dark);
+        }
+        
+        .guide-card p {
+            color: #666;
+            line-height: 1.6;
+            margin-bottom: 20px;
+        }
+        
+        .guide-card ul {
+            list-style: none;
+        }
+        
+        .guide-card ul li {
+            margin-bottom: 10px;
+            display: flex;
+            align-items: center;
+            gap: 10px;
+            color: #555;
+        }
+        
+        .guide-card ul li i {
+            font-size: 1rem;
+            color: var(--accent);
+            margin: 0;
+        }
+        
+        .faq-section {
+            background: white;
+            padding: 60px 0;
+            margin-top: 40px;
+        }
+        
+        .faq-header {
+            text-align: center;
+            margin-bottom: 40px;
+        }
+        
+        .faq-grid {
+            max-width: 800px;
+            margin: 0 auto;
+        }
+        
+        .faq-item {
+            border-bottom: 1px solid #eee;
+            padding: 20px 0;
+        }
+        
+        .faq-question {
+            font-weight: 600;
+            color: var(--dark);
+            margin-bottom: 15px;
+            cursor: pointer;
+            display: flex;
+            justify-content: space-between;
+            align-items: center;
+        }
+        
+        .faq-answer {
+            color: #666;
+            line-height: 1.6;
+            display: none;
+        }
+        
+        .faq-answer.active {
+            display: block;
+        }
+        
+        @media (max-width: 768px) {
+            .guide-header h1 {
+                font-size: 2rem;
+            }
+            
+            .guide-grid {
+                grid-template-columns: 1fr;
+            }
+        }
+    </style>
+</head>
+<body>
+    <!-- Header -->
+    <header>
+        <div class="container">
+            <nav>
+                <div class="logo">PetalFlow</div>
+                <a href="index.html" class="back-home">
+                    <i class="fas fa-arrow-left"></i> Back to Home
+                </a>
+            </nav>
+        </div>
+    </header>
+    
+    <!-- Guide Section -->
+    <section class="guide-section">
+        <div class="container">
+            <div class="guide-header animate__animated animate__fadeIn">
+                <h1>Getting Started with LunaFlow</h1>
+                <p>Welcome to your journey of better understanding your menstrual cycle. This guide will help you make the most of LunaFlow's features.</p>
+            </div>
+            
+            <div class="guide-grid">
+                <div class="guide-card animate__animated animate__fadeInUp animate-delay-1">
+                    <i class="fas fa-user-plus"></i>
+                    <h3>Creating Your Account</h3>
+                    <p>Get started with LunaFlow in just a few simple steps:</p>
+                    <ul>
+                        <li><i class="fas fa-check"></i> Click "Sign Up" on the homepage</li>
+                        <li><i class="fas fa-check"></i> Enter your basic information</li>
+                        <li><i class="fas fa-check"></i> Set your preferences</li>
+                        <li><i class="fas fa-check"></i> Start tracking your cycle</li>
+                    </ul>
+                </div>
+                
+                <div class="guide-card animate__animated animate__fadeInUp animate-delay-2">
+                    <i class="fas fa-chart-line"></i>
+                    <h3>Using the Tracker</h3>
+                    <p>Track your cycle and symptoms with ease:</p>
+                    <ul>
+                        <li><i class="fas fa-check"></i> Log your period days</li>
+                        <li><i class="fas fa-check"></i> Record symptoms and moods</li>
+                        <li><i class="fas fa-check"></i> View predictions</li>
+                        <li><i class="fas fa-check"></i> Get cycle insights</li>
+                    </ul>
+                </div>
+                
+                <div class="guide-card animate__animated animate__fadeInUp animate-delay-3">
+                    <i class="fas fa-lightbulb"></i>
+                    <h3>Understanding Insights</h3>
+                    <p>Make sense of your cycle patterns:</p>
+                    <ul>
+                        <li><i class="fas fa-check"></i> View cycle analytics</li>
+                        <li><i class="fas fa-check"></i> Read AI-powered insights</li>
+                        <li><i class="fas fa-check"></i> Track pattern changes</li>
+                        <li><i class="fas fa-check"></i> Get health recommendations</li>
+                    </ul>
+                </div>
+            </div>
+        </div>
+    </section>
+    
+    <!-- FAQ Section -->
+    <section class="faq-section">
+        <div class="container">
+            <div class="faq-header">
+                <h2>Frequently Asked Questions</h2>
+            </div>
+            
+            <div class="faq-grid">
+                <div class="faq-item">
+                    <div class="faq-question">
+                        How accurate are PetalFlow's predictions?
+                        <i class="fas fa-chevron-down"></i>
+                    </div>
+                    <div class="faq-answer">
+                        PetalFlow's AI algorithm learns from your unique cycle patterns over time. The more data you input, the more accurate our predictions become. Most users report high accuracy after 2-3 cycles of consistent tracking.
+                    </div>
+                </div>
+                
+                <div class="faq-item">
+                    <div class="faq-question">
+                        Is my data secure?
+                        <i class="fas fa-chevron-down"></i>
+                    </div>
+                    <div class="faq-answer">
+                        Yes, we take your privacy seriously. All your data is encrypted and stored securely. We never share your personal information with third parties without your explicit consent.
+                    </div>
+                </div>
+                
+                <div class="faq-item">
+                    <div class="faq-question">
+                        Can I export my data?
+                        <i class="fas fa-chevron-down"></i>
+                    </div>
+                    <div class="faq-answer">
+                        Yes, you can export your cycle data and insights at any time from the Settings page. This feature is useful for sharing information with your healthcare provider.
+                    </div>
+                </div>
+            </div>
+        </div>
+    </section>
+    
+    <script>
+        // FAQ Toggle
+        document.querySelectorAll('.faq-question').forEach(question => {
+            question.addEventListener('click', () => {
+                const answer = question.nextElementSibling;
+                answer.classList.toggle('active');
+                question.querySelector('i').classList.toggle('fa-chevron-up');
+                question.querySelector('i').classList.toggle('fa-chevron-down');
+            });
+        });
+    </script>
+</body>
+</html>

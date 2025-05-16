@@ -1,0 +1,316 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Sign Up - PetalFlow</title>
+    <link href="https://fonts.googleapis.com/css2?family=Poppins:wght@300;400;600;700&family=Dancing+Script:wght@700&display=swap" rel="stylesheet">
+    <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/animate.css/4.1.1/animate.min.css">
+    <style>
+        :root {
+            --primary: #ff6b9d;
+            --secondary: #a18cff;
+            --dark: #2a2344;
+            --light: #fef6ff;
+            --accent: #ffd166;
+        }
+        
+        * {
+            margin: 0;
+            padding: 0;
+            box-sizing: border-box;
+        }
+        
+        body {
+            font-family: 'Poppins', sans-serif;
+            background: linear-gradient(135deg, #fff5f7 0%, #f6f0ff 100%);
+            color: var(--dark);
+            min-height: 100vh;
+            display: flex;
+            flex-direction: column;
+        }
+        
+        .container {
+            max-width: 1200px;
+            margin: 0 auto;
+            padding: 0 20px;
+        }
+        
+        /* Header */
+        header {
+            padding: 20px 0;
+        }
+        
+        nav {
+            display: flex;
+            justify-content: space-between;
+            align-items: center;
+        }
+        
+        .logo {
+            font-family: 'Dancing Script', cursive;
+            font-size: 2.5rem;
+            font-weight: 700;
+            color: var(--primary);
+            text-shadow: 2px 2px 4px rgba(0,0,0,0.1);
+        }
+        
+        .back-home {
+            text-decoration: none;
+            color: var(--dark);
+            font-weight: 600;
+            display: flex;
+            align-items: center;
+            gap: 5px;
+        }
+        
+        .back-home:hover {
+            color: var(--primary);
+        }
+        
+        /* Signup Section */
+        .signup-container {
+            display: flex;
+            align-items: center;
+            justify-content: center;
+            flex-grow: 1;
+            padding: 40px 0;
+        }
+        
+        .signup-box {
+            background: white;
+            border-radius: 20px;
+            box-shadow: 0 15px 40px rgba(0,0,0,0.1);
+            overflow: hidden;
+            display: flex;
+            max-width: 900px;
+            width: 100%;
+            animation: fadeInUp 0.5s ease;
+        }
+        
+        .signup-image {
+            flex: 1;
+            background: linear-gradient(135deg, rgba(255,107,157,0.8) 0%, rgba(161,140,255,0.8) 100%), url('https://i.imgur.com/JQh1WnG.png');
+            background-size: cover;
+            background-position: center;
+            display: flex;
+            align-items: center;
+            justify-content: center;
+            padding: 40px;
+            color: white;
+            text-align: center;
+        }
+        
+        .signup-image h2 {
+            font-size: 2rem;
+            margin-bottom: 20px;
+        }
+        
+        .signup-image p {
+            opacity: 0.9;
+        }
+        
+        .signup-form {
+            flex: 1;
+            padding: 50px;
+        }
+        
+        .signup-form h2 {
+            font-size: 2rem;
+            margin-bottom: 10px;
+            color: var(--dark);
+        }
+        
+        .signup-form p {
+            color: #666;
+            margin-bottom: 30px;
+        }
+        
+        .form-group {
+            margin-bottom: 20px;
+        }
+        
+        .form-group label {
+            display: block;
+            margin-bottom: 8px;
+            font-weight: 600;
+            color: #555;
+        }
+        
+        .form-control {
+            width: 100%;
+            padding: 12px 15px;
+            border: 1px solid #ddd;
+            border-radius: 8px;
+            font-family: 'Poppins', sans-serif;
+            transition: all 0.3s ease;
+        }
+        
+        .form-control:focus {
+            border-color: var(--primary);
+            box-shadow: 0 0 0 3px rgba(255,107,157,0.2);
+            outline: none;
+        }
+        
+        .btn-primary {
+            background: linear-gradient(45deg, var(--primary), var(--secondary));
+            color: white;
+            border: none;
+            padding: 12px 25px;
+            border-radius: 8px;
+            font-weight: 600;
+            cursor: pointer;
+            width: 100%;
+            font-size: 1rem;
+            transition: all 0.3s ease;
+            margin-top: 10px;
+        }
+        
+        .btn-primary:hover {
+            transform: translateY(-2px);
+            box-shadow: 0 5px 15px rgba(161, 140, 255, 0.4);
+        }
+        
+        .login-link {
+            text-align: center;
+            margin-top: 20px;
+            color: #666;
+        }
+        
+        .login-link a {
+            color: var(--primary);
+            text-decoration: none;
+            font-weight: 600;
+        }
+        
+        .login-link a:hover {
+            text-decoration: underline;
+        }
+        
+        /* Form animations */
+        .form-group {
+            opacity: 0;
+            transform: translateY(20px);
+            animation: fadeInUp 0.5s ease forwards;
+        }
+        
+        .form-group:nth-child(1) { animation-delay: 0.1s; }
+        .form-group:nth-child(2) { animation-delay: 0.2s; }
+        .form-group:nth-child(3) { animation-delay: 0.3s; }
+        .form-group:nth-child(4) { animation-delay: 0.4s; }
+        .form-group:nth-child(5) { animation-delay: 0.5s; }
+        
+        @keyframes fadeInUp {
+            from {
+                opacity: 0;
+                transform: translateY(20px);
+            }
+            to {
+                opacity: 1;
+                transform: translateY(0);
+            }
+        }
+        
+        /* Responsive */
+        @media (max-width: 768px) {
+            .signup-box {
+                flex-direction: column;
+            }
+            
+            .signup-image {
+                padding: 30px 20px;
+            }
+            
+            .signup-form {
+                padding: 30px;
+            }
+        }
+    </style>
+</head>
+<body>
+    <!-- Header -->
+    <header>
+        <div class="container">
+            <nav>
+                <div class="logo">PetalFlow</div>
+                <a href="index.html" class="back-home">
+                    <i class="fas fa-arrow-left"></i> Back to Home
+                </a>
+            </nav>
+        </div>
+    </header>
+    
+    <!-- Signup Section -->
+    <section class="signup-container">
+        <div class="signup-box">
+            <div class="signup-image">
+                <div>
+                    <h2>Join Our Community</h2>
+                    <p>Start your journey to better understand your body and cycles with our AI-powered tracker.</p>
+                </div>
+            </div>
+            <div class="signup-form">
+                <h2>Create Account</h2>
+                <p>Fill in your details to get started</p>
+                
+                <form id="signupForm">
+                    <div class="form-group">
+                        <label for="name">Full Name</label>
+                        <input type="text" id="name" class="form-control" required>
+                    </div>
+                    <div class="form-group">
+                        <label for="email">Email Address</label>
+                        <input type="email" id="email" class="form-control" required>
+                    </div>
+                    <div class="form-group">
+                        <label for="password">Password</label>
+                        <input type="password" id="password" class="form-control" required>
+                    </div>
+                    <div class="form-group">
+                        <label for="confirm-password">Confirm Password</label>
+                        <input type="password" id="confirm-password" class="form-control" required>
+                    </div>
+                    <div class="form-group">
+                        <label for="birthdate">Date of Birth</label>
+                        <input type="date" id="birthdate" class="form-control" required>
+                    </div>
+                    <button type="submit" class="btn-primary">Sign Up</button>
+                </form>
+                
+                <div class="login-link">
+                    Already have an account? <a href="login.html">Log in</a>
+                </div>
+            </div>
+        </div>
+    </section>
+    
+    <!-- Font Awesome for icons -->
+    <script src="https://kit.fontawesome.com/a076d05399.js" crossorigin="anonymous"></script>
+    
+    <script>
+        // Form submission
+        document.getElementById('signupForm').addEventListener('submit', function(e) {
+            e.preventDefault();
+            
+            // Get form values
+            const name = document.getElementById('name').value;
+            const email = document.getElementById('email').value;
+            const password = document.getElementById('password').value;
+            const confirmPassword = document.getElementById('confirm-password').value;
+            const birthdate = document.getElementById('birthdate').value;
+            
+            // Simple validation
+            if (password !== confirmPassword) {
+                alert('Passwords do not match!');
+                return;
+            }
+            
+            // In a real app, you would send this data to your backend
+            console.log('Signup data:', { name, email, password, birthdate });
+            
+            // Redirect to home page after successful signup
+            window.location.href = 'home.html';
+        });
+    </script>
+</body>
+</html>
